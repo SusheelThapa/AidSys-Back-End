@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/SusheelThapa/AidSys-Back-End/issues"
   },
-  "homepage": "https://github.com/SusheelThapa/AidSys-Back-End#readme"
+  "homepage": "https://github.com/SusheelThapa/AidSys-Back-End#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
