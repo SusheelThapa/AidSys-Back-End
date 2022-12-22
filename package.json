@@ -1,0 +1,19 @@
+{
+  "name": "aidsys",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SusheelThapa/AidSys-Back-End.git"
+  },
+  "author": "\"Susheel Thapa\"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SusheelThapa/AidSys-Back-End/issues"
+  },
+  "homepage": "https://github.com/SusheelThapa/AidSys-Back-End#readme"
+}
