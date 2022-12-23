@@ -60,3 +60,30 @@ I cannot explain why this is useful but when you will continue, you will know yo
 4. The variable name should be chosen such that there won't be confusion on it name and for what it is created.
 5. The **files** and **directories name** should be in **lowercase**, space shouldn't be used(use underscore(`_`))
 
+### Git and Github Guidelines
+
+#### Git
+
+1. **commit** every small detail or change possible.
+2. The commit can be divided into two section
+
+   - Title
+   - Description
+
+   _If you have change alot so that only **Title** is not able to describe it
+   you can write detail description part_
+
+3. Make sure that after reading the commit, reader can get brief info about your changes.
+
+#### Github
+
+1. It is highly encourage not to upload your file directly using **Github** instead use **Git**
+2. You can use discussion section
+
+   - If you have any doubt
+   - You want to implement something but you didnot find how to implement that
+
+   _This will be helpful if you are working in Open Source Project
+   So, why not to pratice via this project_
+3. If you find any thing that is usual while running project, you can create issue and **try avoiding to say it using DM**
+      
