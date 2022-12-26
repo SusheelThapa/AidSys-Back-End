@@ -15,6 +15,8 @@ ence enabling one-and-all present in the institution to make optimum use of the 
 
    2. [npm intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense): For better suggestions
 
+   3. [rest client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
+
 ## Installation
 
 1. Clone the repository
