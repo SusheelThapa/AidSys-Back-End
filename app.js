@@ -1,13 +1,18 @@
-const morgan = require("morgan");
-const express = require("express");
-const app = express();
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
 
-app.use(morgan("dev"));
+const { JWT_SECRET_KEY } = process.env;
 
-const homepage = require("./routes/homepage.js");
+const verifyToken = (token) => {
+  const tokenData = jwt.verify(token, JWT_SECRET_KEY, (err, tokenData) => {
+    /**
+     * TODO: Error handling
+     */
 
-app.use("/", homepage);
+    return tokenData;
+  });
 
-app.listen(5000, () => {
-  console.log("Listening on Port:5000");
-});
+  return tokenData;
+};
+
+module.exports = verifyToken;
