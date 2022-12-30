@@ -1,27 +1,15 @@
 const mongoose = require("mongoose");
 
-mongoose.set("strictQuery", true);
+/**
+ * Helper function
+ */
+const { encryptPassword, comparePassword } = require("./services/password");
+const { connectMongoDB } = require("./services/database");
 
 /**
- * Connecting to mongodb database
+ * Database model
  */
-mongoose
-  .connect("mongodb://localhost/pratice")
-  .then(() => console.log("Successfully connect to mongodb"))
-  .catch((err) => console.error("Connection err", err));
+const User = require("./modules/User");
 
-/**
- * Creating Schema
- */
-
-const userSchema = new mongoose.Schema({
-  username: String,
-  password: String,
-});
-
-/**
- * Creating models
- */
-
-const User = mongoose.model("User", userSchema);
-
+/*Connecting to database*/
+connectMongoDB();
