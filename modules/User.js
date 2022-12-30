@@ -22,7 +22,7 @@ const createUser = async (username, password) => {
    */
   const doesUserExit = await getUser({ username: username });
 
-  if (!doesUserExit) {
+  if (doesUserExit.length == 0) {
     const user = new User({ username: username, password: password });
 
     user.save().then(() => {
