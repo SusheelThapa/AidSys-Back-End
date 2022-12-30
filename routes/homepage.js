@@ -3,8 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 
-const getToken = require("../services/getToken");
-const getTokenData = require("../services/getTokenData");
+const { getToken, getTokenData } = require("../services/token");
 
 router.get("/", (req, res) => {
   res.send("Hello World");
