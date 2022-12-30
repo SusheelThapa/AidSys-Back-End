@@ -14,9 +14,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.json());
 
-const homepage = require("./routes/homepage.js");
+const users = require("./routes/users");
 
-app.use("/", homepage);
+app.use("/api/user", users);
 
 app.listen(5000, () => {
   console.log("Listening on Port:5000");

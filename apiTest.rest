@@ -1,20 +1,16 @@
 ###
-GET http://localhost:6000/ HTTP/1.1
-
-###
-POST http://localhost:6000/login HTTP/1.1
+POST http://localhost:5000/api/user/createuser HTTP/1.1
 Content-Type: application/json
 
 {
-    "email":"susheelthapa@outlook.com",
-    "password":"123456789",
-    "isAdmin":"true"
+    "username":"susheelthapa",
+    "password":"susheelthapa"
 }
 
 ###
-POST http://localhost:6000/profile HTTP/1.1
+POST http://localhost:5000/api/user/getuser HTTP/1.1
 Content-Type: application/json
 
 {
-    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoic3VzaGVlbHRoYXBhQG91dGxvb2suY29tIiwicGFzc3dvcmQiOiIxMjM0NTY3ODkiLCJpc0FkbWluIjoidHJ1ZSJ9LCJpYXQiOjE2NzIwNjE2NjcsImV4cCI6MTY3MjA5MTY2N30.Q0Leb2uBb1JJnG6lBkHOVzP1_HlZs_5ghRdBt2uuCM8"
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoic3VzaGVlbHRoYXBhIiwicGFzc3dvcmQiOiJzdXNoZWVsdGhhcGEifSwiaWF0IjoxNjcyNDA4MzcxLCJleHAiOjE2NzI0MzgzNzF9.JntTJH_otHrc1RSfNGhnYG7p8cgXbTQi_rKizwAvkp0"
 }

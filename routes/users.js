@@ -5,14 +5,12 @@ const router = express.Router();
 
 const { getToken, getTokenData } = require("../services/token");
 
-router.get("/", (req, res) => {
-  res.send("Hello World");
-  res.end();
-});
-
-router.post("/login", (req, res) => {
+/**
+ * Route for creation of user and sending back the jsonwebtoken
+ */
+router.post("/createuser", (req, res) => {
   /**
-   * TODO: Validation of the data that is sent in request(i.e email, password)
+   * TODO: Validation of the data that is sent in request(i.e username, password)
    */
 
   const { body: user } = req;
@@ -23,7 +21,7 @@ router.post("/login", (req, res) => {
   res.end();
 });
 
-router.post("/profile", (req, res) => {
+router.post("/getuser", (req, res) => {
   /**
    * TODO: Verify that the token is there in body
    */
