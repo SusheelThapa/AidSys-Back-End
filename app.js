@@ -3,6 +3,11 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
+const { connectMongoDB } = require("./services/database");
+
+/*Connecting to database*/
+connectMongoDB();
+
 app.use(morgan("dev"));
 
 app.use(express.urlencoded({ extended: false }));
@@ -13,6 +18,6 @@ const homepage = require("./routes/homepage.js");
 
 app.use("/", homepage);
 
-app.listen(6000, () => {
+app.listen(5000, () => {
   console.log("Listening on Port:5000");
 });
