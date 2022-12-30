@@ -17,6 +17,9 @@ ence enabling one-and-all present in the institution to make optimum use of the 
 
    3. [rest client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
+4. [Installation of MongoDB](https://www.mongodb.com/try/download/community)
+   _Make sure it is properly running on your machine_
+
 ## Installation
 
 1. Clone the repository
@@ -47,6 +50,20 @@ ence enabling one-and-all present in the institution to make optimum use of the 
    ```
 
    _The project will run at PORT 5000_
+
+## Populating Database
+
+### Populating Users
+
+1. First of all, stop the above `npm run dev` using `Ctrl+`C
+
+2. Run the below command
+
+   ```sh
+      node populateUser.js
+   ```
+
+3. And run `npm run dev` again to start your backend server.
 
 ## Guidelines
 
@@ -87,5 +104,5 @@ I cannot explain why this is useful but when you will continue, you will know yo
 
    _This will be helpful if you are working in Open Source Project
    So, why not to pratice via this project_
-3. If you find any thing that is usual while running project, you can create issue and **try avoiding to say it using DM**
-      
+
+3. If you find anything that is usual while running project, you can create issue and **try avoiding to say it using DM**
