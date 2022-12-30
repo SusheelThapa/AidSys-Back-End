@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { comparePassword } = require("../services/password");
 
 /**
  * Creating Schema
@@ -19,14 +20,22 @@ const createUser = async (username, password) => {
   /**
    * Function to create the user
    */
+  const doesUserExit = await getUser({ username: username });
 
-  const user = new User({ username: username, password: password });
+  if (doesUserExit.length == 0) {
+    const user = new User({ username: username, password: password });
 
-  user.save().then(() => {
-    console.log(`User ${username} has been created`);
-  });
+    user.save().then(() => {
+      console.log(`User ${username} has been created`);
+    });
 
-  return user;
+    return { success: true, error: null };
+  } else {
+    return {
+      success: null,
+      error: `User with username ${username} already exist`,
+    };
+  }
 };
 
 const getAllUsers = async () => {
@@ -84,6 +93,26 @@ const deleteAllUsers = async () => {
   }
 };
 
+const validateUser = async (username, password) => {
+  /**
+   * Validate if the user exist in database or not
+   */
+  const user = await User.findOne(
+    { username: username },
+    { username: 1, password: 1, _id: 0 }
+  );
+
+  if (user) {
+    if (await comparePassword(password, user.password)) {
+      return { success: true, error: null };
+    } else {
+      return { success: null, error: "Username and password doesn't match" };
+    }
+  } else {
+    return { success: null, error: "User doesn't exist" };
+  }
+};
+
 module.exports = {
   User,
   createUser,
@@ -91,4 +120,5 @@ module.exports = {
   getAllUsers,
   deleteUser,
   deleteAllUsers,
+  validateUser,
 };
