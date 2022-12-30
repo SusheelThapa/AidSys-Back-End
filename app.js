@@ -3,6 +3,11 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
+const { connectMongoDB } = require("./services/database");
+
+/*Connecting to database*/
+connectMongoDB();
+
 app.use(morgan("dev"));
 
 app.use(express.urlencoded({ extended: false }));
