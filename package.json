@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/SusheelThapa/AidSys-Back-End#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
