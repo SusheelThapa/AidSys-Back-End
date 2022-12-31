@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const _ = require("lodash");
 
 const { encryptPassword, comparePassword } = require("../services/password");
 const { createToken } = require("../services/token");
@@ -29,14 +30,14 @@ const createUser = async (username, password, college, email, phone) => {
   if (doesUserExit.length == 0) {
     password = await encryptPassword(password);
 
-    const user = new User({ username, password, college, email, phone });
+    let user = new User({ username, password, college, email, phone });
 
     user.save().then(() => {
       console.log(`User ${username} has been created`);
     });
 
     /*Removing _id field*/
-    delete user._id;
+    user = _.pick(user, ["username", "password", "college", "phone", "email"]);
 
     /*Creating token*/
     const token = createToken(user);
