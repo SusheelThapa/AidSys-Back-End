@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const { encryptPassword, comparePassword } = require("../services/password");
+const { createToken } = require("../services/token");
 
 /**
  * Creating Schema
@@ -34,7 +35,13 @@ const createUser = async (username, password, college, email, phone) => {
       console.log(`User ${username} has been created`);
     });
 
-    return { success: true, error: null };
+    /*Removing _id field*/
+    delete user._id;
+
+    /*Creating token*/
+    const token = createToken(user);
+
+    return { success: true, error: null, token };
   } else {
     return {
       success: null,
