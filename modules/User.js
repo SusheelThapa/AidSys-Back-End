@@ -110,14 +110,13 @@ const validateUser = async (username, password) => {
   /**
    * Validate if the user exist in database or not
    */
-  const user = await User.findOne(
-    { username: username },
-    { username: 1, password: 1, _id: 0 }
-  );
+  const user = await User.findOne({ username: username }, { _id: 0 });
 
   if (user) {
     if (await comparePassword(password, user.password)) {
-      return { success: true, error: null };
+      const token = createToken(user);
+      
+      return { success: true, error: null, token };
     } else {
       return { success: null, error: "Username and password doesn't match" };
     }

@@ -47,23 +47,21 @@ router.post("/getuser", (req, res) => {
   res.end();
 });
 
-// router.post("/login", async (req, res) => {
-//   /**
-//    * TODO: Validation of the data that is sent in request(i.e username, password)
-//    */
-//   const { username, password } = await req.body;
+router.post("/login", async (req, res) => {
+  /**
+   * TODO: Validation of the data that is sent in request(i.e username, password)
+   */
+  const { username, password } = await req.body;
 
-//   const { success, error } = await validateUser(username, password);
+  const { success, error, token } = await validateUser(username, password);
 
-//   const token = getToken({ username, password });
+  if (success) {
+    res.send({ success, token });
+  } else {
+    res.send({ success, error });
+  }
 
-//   if (success) {
-//     res.send({ success, token });
-//   } else {
-//     res.send({ success, error });
-//   }
-
-//   res.end();
-// });
+  res.end();
+});
 
 module.exports = router;
