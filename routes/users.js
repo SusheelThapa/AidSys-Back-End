@@ -21,7 +21,7 @@ router.post("/createuser", async (req, res) => {
   const { success, error } = await createUser(username, password);
 
   if (success) {
-    res.send({ success, token: token });
+    res.send({ success, token });
   } else {
     res.send({ success, error });
   }
@@ -45,9 +45,17 @@ router.post("/login", async (req, res) => {
   /**
    * TODO: Validation of the data that is sent in request(i.e username, password)
    */
-  const { body: user } = await req;
+  const { username, password } = await req.body;
 
-  res.send(await validateUser(user.username, user.password));
+  const { success, error } = await validateUser(username, password);
+
+  const token = getToken({ username, password });
+
+  if (success) {
+    res.send({ success, token });
+  } else {
+    res.send({ success, error });
+  }
 
   res.end();
 });
