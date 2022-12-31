@@ -8,6 +8,9 @@ const { comparePassword } = require("../services/password");
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
+  college: String,
+  email: String,
+  phone: String,
 });
 
 /**
@@ -16,14 +19,14 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-const createUser = async (username, password) => {
+const createUser = async (username, password, college, email, phone) => {
   /**
    * Function to create the user
    */
   const doesUserExit = await getUser({ username: username });
 
   if (doesUserExit.length == 0) {
-    const user = new User({ username: username, password: password });
+    const user = new User({ username, password, college, email, phone });
 
     user.save().then(() => {
       console.log(`User ${username} has been created`);

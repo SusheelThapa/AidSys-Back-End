@@ -11,14 +11,20 @@ const { getToken, getTokenData } = require("../services/token");
  */
 router.post("/createuser", async (req, res) => {
   /**
-   * TODO: Validation of the data that is sent in request(i.e username, password)
+   * TODO: Validation of the data that is sent in request(i.e username, password,college,email,phone)
    */
 
-  const { username, password } = req.body;
+  const { username, password, college, email, phone } = req.body;
 
-  const token = getToken({ username, password });
+  const token = getToken({ username, password, college, email, phone });
 
-  const { success, error } = await createUser(username, password);
+  const { success, error } = await createUser(
+    username,
+    password,
+    college,
+    email,
+    phone
+  );
 
   if (success) {
     res.send({ success, token });
