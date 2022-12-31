@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-const { comparePassword } = require("../services/password");
+
+const { encryptPassword, comparePassword } = require("../services/password");
 
 /**
  * Creating Schema
  */
-
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
@@ -16,16 +16,18 @@ const userSchema = new mongoose.Schema({
 /**
  * Creating models
  */
-
 const User = mongoose.model("User", userSchema);
 
 const createUser = async (username, password, college, email, phone) => {
   /**
    * Function to create the user
+   * Password will be encrypted before saving to database
    */
-  const doesUserExit = await getUser({ username: username });
+  const doesUserExit = await getUser({ username });
 
   if (doesUserExit.length == 0) {
+    password = await encryptPassword(password);
+
     const user = new User({ username, password, college, email, phone });
 
     user.save().then(() => {
