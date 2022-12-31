@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 /**
  * Helper function
  */
-const { encryptPassword } = require("./services/password");
 const { connectMongoDB } = require("./services/database");
 
 /**
@@ -24,13 +23,37 @@ const populateUsers = async () => {
   /**
    * Creating and saving user in the database
    */
-  createUser("susheelthapa", await encryptPassword("susheelthapa"));
+  await createUser(
+    "susheelthapa",
+    "susheelthapa",
+    "Pulchowk Campus",
+    "077bct090.susheel@pcampus.edu.np",
+    "+9770000000000"
+  );
 
-  createUser("neekamaharjan", await encryptPassword("neekamaharjan"));
+  await createUser(
+    "neekamaharjan",
+    "neekamaharjan",
+    "Pulchowk Campus",
+    "077bct050.neeka@pcampus.edu.np",
+    "+9770000000000"
+  );
 
-  createUser("ujjwaljha", await encryptPassword("ujjwaljha"));
+  await createUser(
+    "ujjwaljha",
+    "ujjwaljha",
+    "Pulchowk Campus",
+    "077bct092.ujjwal@pcampus.edu.np",
+    "+9770000000000"
+  );
 
-  createUser("rounakjha", await encryptPassword("rounakjha"));
+  await createUser(
+    "rounakjha",
+    "rounakjha",
+    "Pulchowk Campus",
+    "077bct072.rounak@pcampus.edu.np",
+    "+9770000000000"
+  );
 };
 
 populateUsers();
