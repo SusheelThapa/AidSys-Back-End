@@ -4,7 +4,10 @@ Content-Type: application/json
 
 {
     "username":"susheelthapa",
-    "password":"susheelthapa"
+    "password":"susheelthapa",
+    "college":"Pulchowk Campus",
+    "email":"077bct090.susheel@pcampus.edu.np",
+    "phone":"+9779816227392"
 }
 
 ###

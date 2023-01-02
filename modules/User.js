@@ -1,35 +1,48 @@
 const mongoose = require("mongoose");
-const { comparePassword } = require("../services/password");
+const _ = require("lodash");
+
+const { encryptPassword, comparePassword } = require("../services/password");
+const { createToken } = require("../services/token");
 
 /**
  * Creating Schema
  */
-
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
+  college: String,
+  email: String,
+  phone: String,
 });
 
 /**
  * Creating models
  */
-
 const User = mongoose.model("User", userSchema);
 
-const createUser = async (username, password) => {
+const createUser = async (username, password, college, email, phone) => {
   /**
    * Function to create the user
+   * Password will be encrypted before saving to database
    */
-  const doesUserExit = await getUser({ username: username });
+  const doesUserExit = await getUser({ username });
 
   if (doesUserExit.length == 0) {
-    const user = new User({ username: username, password: password });
+    password = await encryptPassword(password);
+
+    let user = new User({ username, password, college, email, phone });
 
     user.save().then(() => {
       console.log(`User ${username} has been created`);
     });
 
-    return { success: true, error: null };
+    /*Removing _id field*/
+    user = _.pick(user, ["username", "password", "college", "phone", "email"]);
+
+    /*Creating token*/
+    const token = createToken(user);
+
+    return { success: true, error: null, token };
   } else {
     return {
       success: null,
@@ -97,14 +110,13 @@ const validateUser = async (username, password) => {
   /**
    * Validate if the user exist in database or not
    */
-  const user = await User.findOne(
-    { username: username },
-    { username: 1, password: 1, _id: 0 }
-  );
+  const user = await User.findOne({ username: username }, { _id: 0 });
 
   if (user) {
     if (await comparePassword(password, user.password)) {
-      return { success: true, error: null };
+      const token = createToken(user);
+      
+      return { success: true, error: null, token };
     } else {
       return { success: null, error: "Username and password doesn't match" };
     }

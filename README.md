@@ -20,6 +20,30 @@ ence enabling one-and-all present in the institution to make optimum use of the 
 4. [Installation of MongoDB](https://www.mongodb.com/try/download/community)
    _Make sure it is properly running on your machine_
 
+## Setting up Database
+
+### Populating Users
+
+1. First of all, stop the above `npm run dev` using `Ctrl+`C
+
+2. Run the below command
+
+   ```sh
+      node populateUser.js
+   ```
+
+3. And run `npm run dev` again to start your backend server.
+
+## Setting up environmental variables
+
+1. Create a file `.env` in root directory
+2. Add the following lines
+
+   ```sh
+   JWT_SECRET_KEY="1qazxsw23edcvfr45tgb"
+   BCRYPT_SALT_ROUND=10;
+   ```
+
 ## Installation
 
 1. Clone the repository
@@ -50,22 +74,9 @@ ence enabling one-and-all present in the institution to make optimum use of the 
    ```
 
    _The project will run at PORT 5000_
+   _You need to setup database and environment variable also_
 
-## Populating Database
-
-### Populating Users
-
-1. First of all, stop the above `npm run dev` using `Ctrl+`C
-
-2. Run the below command
-
-   ```sh
-      node populateUser.js
-   ```
-
-3. And run `npm run dev` again to start your backend server.
-
-## Guidelines
+## Guidelines for contribution
 
 These set of rules are to be taken into consideration while doing this project.
 

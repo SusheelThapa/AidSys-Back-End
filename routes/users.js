@@ -1,27 +1,32 @@
 require("dotenv").config();
 
+const _ = require("lodash");
 const express = require("express");
-const { createUser, validateUser } = require("../modules/User");
 const router = express.Router();
 
-const { getToken, getTokenData } = require("../services/token");
+const { createUser, validateUser } = require("../modules/User");
+const { createToken, getTokenData } = require("../services/token");
 
 /**
  * Route for creation of user and sending back the jsonwebtoken
  */
 router.post("/createuser", async (req, res) => {
   /**
-   * TODO: Validation of the data that is sent in request(i.e username, password)
+   * TODO: Validation of the data that is sent in request(i.e username, password,college,email,phone)
    */
 
-  const { username, password } = req.body;
+  const { username, password, college, email, phone } = req.body;
 
-  const token = getToken({ username, password });
-
-  const { success, error } = await createUser(username, password);
+  const { success, error, token } = await createUser(
+    username,
+    password,
+    college,
+    email,
+    phone
+  );
 
   if (success) {
-    res.send({ success, token: token });
+    res.send({ success, token });
   } else {
     res.send({ success, error });
   }
@@ -35,7 +40,8 @@ router.post("/getuser", (req, res) => {
 
   const { token } = req.body;
 
-  const userDetails = getTokenData(token);
+  let userDetails = getTokenData(token);
+  userDetails = _.pick(userDetails, ["username", "college", "email", "phone"]);
 
   res.send(userDetails);
   res.end();
@@ -45,9 +51,15 @@ router.post("/login", async (req, res) => {
   /**
    * TODO: Validation of the data that is sent in request(i.e username, password)
    */
-  const { body: user } = await req;
+  const { username, password } = await req.body;
 
-  res.send(await validateUser(user.username, user.password));
+  const { success, error, token } = await validateUser(username, password);
+
+  if (success) {
+    res.send({ success, token });
+  } else {
+    res.send({ success, error });
+  }
 
   res.end();
 });

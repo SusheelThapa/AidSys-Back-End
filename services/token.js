@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const { JWT_SECRET_KEY } = process.env;
 
-const getToken = (user) => {
+const createToken = (user) => {
   /**
    * Function to create token based on user data
    */
@@ -44,4 +44,4 @@ const verifyToken = (token) => {
   return tokenData;
 };
 
-module.exports = { getTokenData, getToken };
+module.exports = { getTokenData, createToken };
