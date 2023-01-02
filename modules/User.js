@@ -9,10 +9,11 @@ const { createToken } = require("../services/token");
  */
 const userSchema = new mongoose.Schema({
   username: String,
-  password: String,
-  college: String,
   email: String,
   phone: String,
+  password: String,
+  college: { type: mongoose.ObjectId, ref: "College", required: false },
+  bookedAssets: [{ type: mongoose.ObjectId, ref: "Assets", required: false }],
 });
 
 /**
@@ -20,26 +21,20 @@ const userSchema = new mongoose.Schema({
  */
 const User = mongoose.model("User", userSchema);
 
-const createUser = async (username, password, college, email, phone) => {
-  /**
-   * Function to create the user
-   * Password will be encrypted before saving to database
-   */
+const createUser = async (username, password, email, phone) => {
   const doesUserExit = await getUser({ username });
 
   if (doesUserExit.length == 0) {
     password = await encryptPassword(password);
 
-    let user = new User({ username, password, college, email, phone });
+    let user = new User({ username, password, email, phone });
 
     user.save().then(() => {
       console.log(`User ${username} has been created`);
     });
 
-    /*Removing _id field*/
     user = _.pick(user, ["username", "password", "college", "phone", "email"]);
 
-    /*Creating token*/
     const token = createToken(user);
 
     return { success: true, error: null, token };
@@ -62,7 +57,7 @@ const getAllUsers = async () => {
 
 const getUser = async (filter) => {
   /**
-   * Function to get all the user
+   * Function to get particular the user
    */
 
   /**
@@ -74,7 +69,7 @@ const getUser = async (filter) => {
   return user;
 };
 
-const deleteUser = async (filter) => {
+const deleteUser = async (_id) => {
   /**
    * Function to delete particular user
    */
@@ -82,7 +77,7 @@ const deleteUser = async (filter) => {
   /**
    * TODO: If the filter is in json format or not
    */
-  const deletedUser = await User.deleteOne(filter);
+  const deletedUser = await User.deleteOne(_id);
 
   return deletedUser.acknowledged;
 };
@@ -92,18 +87,14 @@ const deleteAllUsers = async () => {
    * Function to delete all particular user
    */
 
-  try {
-    const users = await User.find({});
+  const users = await User.find({});
 
-    for (user of users) {
-      if (await deleteUser(user)) {
-        console.warn(`User ${user.username} has been removed`);
-      }
-    }
-    return true;
-  } catch (err) {
-    console.error(err);
+  for (user of users) {
+    deleteUser(user._id).then((status) => {
+      status ? console.log(`User ${user._id} has been deleted`) : "";
+    });
   }
+  return true;
 };
 
 const validateUser = async (username, password) => {
@@ -115,7 +106,7 @@ const validateUser = async (username, password) => {
   if (user) {
     if (await comparePassword(password, user.password)) {
       const token = createToken(user);
-      
+
       return { success: true, error: null, token };
     } else {
       return { success: null, error: "Username and password doesn't match" };
