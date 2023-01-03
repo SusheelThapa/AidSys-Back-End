@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 
 const tagSchema = new mongoose.Schema({
   name: String,
-  tutorials: [{ type: mongoose.ObjectId, ref: "Assests" }],
+  assets: [{ type: mongoose.ObjectId, ref: "Assets", required: false }],
 });
 
 /**
@@ -14,3 +14,5 @@ const tagSchema = new mongoose.Schema({
  */
 
 const Tag = mongoose.model("Tag", tagSchema);
+
+module.exports = { Tag };

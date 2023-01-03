@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-const { User } = require("./User");
 
 /*<===== SCHEMA AND MODEL =====> */
 const assetsSchema = new mongoose.Schema({
   name: String,
   totalQuantities: Number,
+  tags: [{ type: mongoose.ObjectId, ref: "Tag", required: false }],
   bookedBy: [{ type: mongoose.ObjectId, ref: "User", required: false }],
 });
 
