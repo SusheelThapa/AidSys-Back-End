@@ -13,7 +13,8 @@ const userSchema = new mongoose.Schema({
   college: { type: mongoose.ObjectId, ref: "College", required: false },
   bookedAssets: [
     {
-      _id: { type: mongoose.ObjectId, ref: "Assets", required: false },
+      _id: false,
+      asset: { type: mongoose.ObjectId, ref: "Assets", required: false },
       bookedQuantities: Number,
     },
   ],
@@ -34,7 +35,7 @@ const createUser = async (username, password, email, phone) => {
 
     const token = createToken(user);
 
-    return { success: true, error: null, token };
+    return { success: true, error: null };
   } else {
     return {
       success: null,
@@ -114,7 +115,7 @@ const validateUser = async (username, password) => {
     if (await comparePassword(password, user.password)) {
       const token = createToken(user);
 
-      return { success: true, error: null, token };
+      return { success: true, error: null };
     } else {
       return { success: null, error: "Username and password doesn't match" };
     }
