@@ -4,63 +4,18 @@ const _ = require("lodash");
 const express = require("express");
 const router = express.Router();
 
-const { createUser, validateUser } = require("../modules/User");
-const { createToken, getTokenData } = require("../services/token");
+const { User } = require("../modules/User");
+const { College } = require("../modules/College");
+const { Assets } = require("../modules/Asset");
 
-/**
- * Route for creation of user and sending back the jsonwebtoken
- */
-router.post("/createuser", async (req, res) => {
-  /**
-   * TODO: Validation of the data that is sent in request(i.e username, password,college,email,phone)
-   */
+router.get("/:_id", async (req, res) => {
+  const { _id } = req.params;
 
-  const { username, password, college, email, phone } = req.body;
+  const user = await User.find({ _id }, { password: 0, __v: 0 })
+    .populate("college", { assets: 0, address: 0, __v: 0 })
+    .populate("bookedAssets.asset", { tags: 0, bookedBy: 0, __v: 0 });
 
-  const { success, error, token } = await createUser(
-    username,
-    password,
-    college,
-    email,
-    phone
-  );
-
-  if (success) {
-    res.send({ success, token });
-  } else {
-    res.send({ success, error });
-  }
-  res.end();
-});
-
-router.post("/getuser", (req, res) => {
-  /**
-   * TODO: Verify that the token is there in body
-   */
-
-  const { token } = req.body;
-
-  let userDetails = getTokenData(token);
-  userDetails = _.pick(userDetails, ["username", "college", "email", "phone"]);
-
-  res.send(userDetails);
-  res.end();
-});
-
-router.post("/login", async (req, res) => {
-  /**
-   * TODO: Validation of the data that is sent in request(i.e username, password)
-   */
-  const { username, password } = await req.body;
-
-  const { success, error, token } = await validateUser(username, password);
-
-  if (success) {
-    res.send({ success, token });
-  } else {
-    res.send({ success, error });
-  }
-
+  res.send(user);
   res.end();
 });
 
