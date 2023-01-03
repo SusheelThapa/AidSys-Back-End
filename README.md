@@ -20,21 +20,17 @@ ence enabling one-and-all present in the institution to make optimum use of the 
 4. [Installation of MongoDB](https://www.mongodb.com/try/download/community)
    _Make sure it is properly running on your machine_
 
-## Setting up Database
+## Setting up Project
 
-### Populating Users
+### Cloning the project
 
-1. First of all, stop the above `npm run dev` using `Ctrl+`C
-
-2. Run the below command
+1. Clone the repository
 
    ```sh
-      node populateUser.js
+   git clone git@github.com:SusheelThapa/AidSys-Back-End.git
    ```
 
-3. And run `npm run dev` again to start your backend server.
-
-## Setting up environmental variables
+### Setting up environmental variables
 
 1. Create a file `.env` in root directory
 2. Add the following lines
@@ -42,15 +38,27 @@ ence enabling one-and-all present in the institution to make optimum use of the 
    ```sh
    JWT_SECRET_KEY="1qazxsw23edcvfr45tgb"
    BCRYPT_SALT_ROUND=10;
+   DATABASE=aidsys
    ```
 
-## Installation
+### Setting up Database
 
-1. Clone the repository
+2. Run the below command
 
    ```sh
-   git clone git@github.com:SusheelThapa/AidSys-Back-End.git
+      node populateUser.js
    ```
+
+3. Then, you will see below message on your console.
+
+   ```text
+   Successfully connect to mongodb
+   Done
+   ```
+
+4. Then, exit the program by pressing `Ctrl + C`
+
+### Installing packages
 
 2. Install the node modules
 
@@ -67,7 +75,9 @@ ence enabling one-and-all present in the institution to make optimum use of the 
    _Since, we use `nodemon` while creating most of backend server using **nodejs** so rather than including in package.json.
    we have installed it globally_
 
-4. Running the project
+## Running the project
+
+1. Running the project
 
    ```sh
    npm run dev
@@ -117,3 +127,7 @@ I cannot explain why this is useful but when you will continue, you will know yo
    So, why not to pratice via this project_
 
 3. If you find anything that is usual while running project, you can create issue and **try avoiding to say it using DM**
+
+```
+
+```
