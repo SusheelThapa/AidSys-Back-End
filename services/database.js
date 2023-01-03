@@ -11,7 +11,7 @@ const connectMongoDB = () => {
    * Connecting to mongodb database
    */
   mongoose
-    .connect("mongodb://localhost/" + DATABASE)
+    .connect("mongodb://127.0.0.1/" + DATABASE)
     .then(() =>
       console.log("Successfully connect to " + DATABASE + " database")
     )
