@@ -19,4 +19,24 @@ router.get("/:_id", async (req, res) => {
   res.end();
 });
 
+router.post("/bookassets", async (req, res) => {
+  const { userId, bookedAssets } = req.body;
+  const user = await User.findOne({ _id: userId }).populate();
+
+  bookedAssets.forEach(async (bookAsset) => {
+    // user.bookedAssets.push(bookAsset);
+
+    const { asset: _id, bookedQuantities } = bookAsset;
+
+    const asset = await Assets.findOne({ _id });
+
+    asset.bookedBy.push(userId);
+    asset.save();
+  });
+
+  user.save();
+
+  res.send(user);
+});
+
 module.exports = router;
