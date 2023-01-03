@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const { Assets } = require("./modules/Asset");
 const { College } = require("./modules/College");
 const { User } = require("./modules/User");
+const { Tag } = require("./modules/Tag");
 
 const { BCRYPT_SALT_ROUND } = process.env;
 
@@ -92,11 +93,15 @@ const assetData = [
 /*College Details*/
 const collegeData = [{ name: "Pulchowk Campus", address: "Lalitpur" }];
 
+/*Tag Details*/
+const tagData = [{ name: "Sports" }, { name: "Academics" }];
+
 const populate = async () => {
-  /*Remvoing all the college, assets and user detail if available*/
+  /*Remvoing all the college, assets,tags and user detail if available*/
   await College.deleteMany({});
   await User.deleteMany({});
   await Assets.deleteMany({});
+  await Tag.deleteMany({});
 
   /*Creating user, assets and college details*/
   const susheel = new User(userData[0]);
@@ -114,6 +119,9 @@ const populate = async () => {
 
   const pulchowk = new College(collegeData[0]);
 
+  const sports = new Tag(tagData[0]);
+  const academics = new Tag(tagData[1]);
+
   /*Saving into the database*/
   susheel.save();
   neeka.save();
@@ -129,6 +137,9 @@ const populate = async () => {
   badminton.save();
 
   pulchowk.save();
+
+  sports.save();
+  academics.save();
 
   /*Creating relationship*/
 
@@ -146,6 +157,24 @@ const populate = async () => {
     tabletennis._id,
     badminton._id,
   ];
+
+  academics.assets = [libraryHall._id];
+  sports.assets = [
+    football._id,
+    cricket._id,
+    volleyball._id,
+    basketball._id,
+    tabletennis._id,
+    badminton._id,
+  ];
+
+  libraryHall.tags = [academics._id];
+  football.tags = [sports._id];
+  cricket.tags = [sports._id];
+  volleyball.tags = [sports._id];
+  basketball.tags = [sports._id];
+  tabletennis.tags = [sports._id];
+  badminton.tags = [sports._id];
 
   susheel.bookedAssets = [
     { _id: football._id, bookedQuantities: 1 },
