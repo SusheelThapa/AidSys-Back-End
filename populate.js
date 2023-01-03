@@ -1,7 +1,13 @@
+require("dotenv").config();
+
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+
 const { Assets } = require("./modules/Asset");
 const { College } = require("./modules/College");
 const { User } = require("./modules/User");
+
+const { BCRYPT_SALT_ROUND } = process.env;
 
 mongoose.set("strictQuery", true);
 
@@ -11,33 +17,45 @@ mongoose
   .then(() => console.log("Successfully connect to mongodb"))
   .catch((err) => console.error("Connection err", err));
 
+/*Encrypting password*/
+const encryptPassword = (plainPassword) => {
+  const salt = bcrypt.genSaltSync(parseInt(BCRYPT_SALT_ROUND));
+
+  const hashedPassword = bcrypt.hashSync(plainPassword, salt);
+  return hashedPassword;
+};
+
 /*User Details*/
 const userData = [
   {
     username: "susheelthapa",
     password: "susheelthapa",
     email: "077bct090.susheel@pcampus.edu.np",
-    password: "+9770000000000",
+    phone: "+9770000000000",
   },
   {
     username: "neekamaharjan",
     password: "neekamaharjan",
     email: "077bct050.neeka@pcampus.edu.np",
-    password: "+9770000000000",
+    phone: "+9770000000000",
   },
   {
     username: "ujjwaljha",
     password: "ujjwaljha",
     email: "077bct092.ujjwal@pcampus.edu.np",
-    password: "+9770000000000",
+    phone: "+9770000000000",
   },
   {
     username: "rounakjha",
     password: "rounakjha",
     email: "077bct071.rounak@pcampus.edu.np",
-    password: "+9770000000000",
+    phone: "+9770000000000",
   },
 ];
+
+for (let user of userData) {
+  user["password"] = encryptPassword(user["password"]);
+}
 
 /*Assets Details*/
 const assetData = [
