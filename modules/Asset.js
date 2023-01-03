@@ -1,20 +1,16 @@
 const mongoose = require("mongoose");
 const { User } = require("./User");
 
-/**
- * Creating Schema
- */
+/*<===== SCHEMA AND MODEL =====> */
 const assetsSchema = new mongoose.Schema({
   name: String,
-  quantities: Number,
+  totalQuantities: Number,
   bookedBy: [{ type: mongoose.ObjectId, ref: "User", required: false }],
 });
 
-/**
- * Creating models
- */
 const Assets = mongoose.model("Assets", assetsSchema);
 
+/* <===== CRUD OPERATION=====> */
 const createAssets = async (name, quantities) => {
   const asset = new Assets({ name, quantities });
 
@@ -42,8 +38,8 @@ const deleteAllAssets = async () => {
 };
 
 const deleteAssets = async (_id) => {
-  const response = await Assets.deleteOne(_id );
+  const response = await Assets.deleteOne(_id);
   return response.acknowledged;
 };
 
-module.exports = { createAssets, deleteAssets, deleteAllAssets };
+module.exports = { Assets, createAssets, deleteAssets, deleteAllAssets };

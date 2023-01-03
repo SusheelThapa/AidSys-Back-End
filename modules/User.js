@@ -4,31 +4,32 @@ const _ = require("lodash");
 const { encryptPassword, comparePassword } = require("../services/password");
 const { createToken } = require("../services/token");
 
-/**
- * Creating Schema
- */
+/*<===== Schema and Model =====> */
 const userSchema = new mongoose.Schema({
   username: String,
   email: String,
   phone: String,
   password: String,
   college: { type: mongoose.ObjectId, ref: "College", required: false },
-  bookedAssets: [{ type: mongoose.ObjectId, ref: "Assets", required: false }],
+  bookedAssets: [
+    {
+      _id: { type: mongoose.ObjectId, ref: "Assets", required: false },
+      bookedQuantities: Number,
+    },
+  ],
 });
 
-/**
- * Creating models
- */
 const User = mongoose.model("User", userSchema);
 
+/* <===== CRUD OPERATIONS =====> */
 const createUser = async (username, password, email, phone) => {
-  const doesUserExit = await getUser({ username });
+  const doesUserExit = await User.find({ username });
 
   if (doesUserExit.length == 0) {
     password = await encryptPassword(password);
 
+    phone = parseInt(phone);
     let user = new User({ username, password, email, phone });
-
     user.save().then(() => {
       console.log(`User ${username} has been created`);
     });
@@ -37,7 +38,7 @@ const createUser = async (username, password, email, phone) => {
 
     const token = createToken(user);
 
-    return { success: true, error: null, token };
+    return { success: true, error: null, token, _id: user._id };
   } else {
     return {
       success: null,
@@ -47,33 +48,22 @@ const createUser = async (username, password, email, phone) => {
 };
 
 const getAllUsers = async () => {
-  /**
-   * Function to get all the user
-   */
   const users = await User.find({});
 
   return users;
 };
 
-const getUser = async (filter) => {
-  /**
-   * Function to get particular the user
-   */
-
+const getUser = async (_id) => {
   /**
    * TODO: If the filter is in json format or not
    */
 
-  const user = await User.find(filter);
+  const user = await User.findById(_id);
 
   return user;
 };
 
 const deleteUser = async (_id) => {
-  /**
-   * Function to delete particular user
-   */
-
   /**
    * TODO: If the filter is in json format or not
    */
@@ -83,10 +73,6 @@ const deleteUser = async (_id) => {
 };
 
 const deleteAllUsers = async () => {
-  /**
-   * Function to delete all particular user
-   */
-
   const users = await User.find({});
 
   for (user of users) {
@@ -98,9 +84,6 @@ const deleteAllUsers = async () => {
 };
 
 const validateUser = async (username, password) => {
-  /**
-   * Validate if the user exist in database or not
-   */
   const user = await User.findOne({ username: username }, { _id: 0 });
 
   if (user) {
