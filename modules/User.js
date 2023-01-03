@@ -28,17 +28,13 @@ const createUser = async (username, password, email, phone) => {
   if (doesUserExit.length == 0) {
     password = await encryptPassword(password);
 
-    phone = parseInt(phone);
-    let user = new User({ username, password, email, phone });
-    user.save().then(() => {
-      console.log(`User ${username} has been created`);
-    });
+    let user = new User({ username, password, email, phone: parseInt(phone) });
 
-    user = _.pick(user, ["username", "password", "college", "phone", "email"]);
+    user.save();
 
     const token = createToken(user);
 
-    return { success: true, error: null, token, _id: user._id };
+    return { success: true, error: null, token };
   } else {
     return {
       success: null,
@@ -48,28 +44,56 @@ const createUser = async (username, password, email, phone) => {
 };
 
 const getAllUsers = async () => {
-  const users = await User.find({});
+  try {
+    const users = await User.find({});
 
-  return users;
+    return { success: true, error: null, users: users };
+  } catch (error) {
+    console.log(error);
+
+    return { success: null, error: true, users: users };
+  }
 };
 
 const getUser = async (_id) => {
   /**
    * TODO: If the filter is in json format or not
    */
+  try {
+    const user = await User.findById(_id);
 
-  const user = await User.findById(_id);
+    return { success: true, error: null, user: user };
+  } catch (error) {
+    console.log(error);
 
-  return user;
+    return { success: null, error: true, message: "User doesn't exist" };
+  }
 };
 
 const deleteUser = async (_id) => {
   /**
    * TODO: If the filter is in json format or not
    */
-  const deletedUser = await User.deleteOne(_id);
 
-  return deletedUser.acknowledged;
+  try {
+    const deletedUser = await User.deleteOne(_id);
+
+    return deletedUser.acknowledged
+      ? { success: true, error: null }
+      : {
+          success: null,
+          error: true,
+          message: "Error while deleting the user",
+        };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      success: null,
+      error: true,
+      message: "Error while deleting the user " + _id,
+    };
+  }
 };
 
 const deleteAllUsers = async () => {
@@ -84,7 +108,7 @@ const deleteAllUsers = async () => {
 };
 
 const validateUser = async (username, password) => {
-  const user = await User.findOne({ username: username }, { _id: 0 });
+  const user = await User.findOne({ username: username });
 
   if (user) {
     if (await comparePassword(password, user.password)) {
