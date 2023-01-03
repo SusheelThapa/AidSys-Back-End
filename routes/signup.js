@@ -4,6 +4,10 @@ const router = express.Router();
 const { createUser } = require("../modules/User");
 
 router.post("/", async (req, res) => {
+  /**
+   * create the user based on passed credentials
+   */
+
   const { username, password, college, email, phone } = req.body;
 
   const user = await createUser(username, password, college, email, phone);

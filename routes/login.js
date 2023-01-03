@@ -4,6 +4,9 @@ const router = express.Router();
 const { validateUser } = require("../modules/User");
 
 router.post("/", async (req, res) => {
+  /**
+   * To verify the login credential match with database
+   */
   const { username, password } = req.body;
 
   const response = await validateUser(username, password);
