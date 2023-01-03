@@ -1,15 +1,45 @@
 const mongoose = require("mongoose");
 
-/**
- * Creating Schema
- */
-const assestsSchema = new mongoose.Schema({
+/*<===== SCHEMA AND MODEL =====> */
+const assetsSchema = new mongoose.Schema({
   name: String,
-  tags: [{ type: mongoose.ObjectId, ref: "Tags" }],
+  totalQuantities: Number,
+  tags: [{ type: mongoose.ObjectId, ref: "Tag", required: false }],
+  bookedBy: [{ type: mongoose.ObjectId, ref: "User", required: false }],
 });
 
+const Assets = mongoose.model("Assets", assetsSchema);
 
-/**
- * Creating models
- */
-const Assests = mongoose.model("Assests", assestsSchema);
+/* <===== CRUD OPERATION=====> */
+const createAssets = async (name, quantities) => {
+  const asset = new Assets({ name, quantities });
+
+  asset
+    .save()
+    .then((response) => {
+      console.log(`Assets ${name} has been save with id ${response._id}`);
+
+      return { success: true, error: null };
+    })
+    .catch((error) => {
+      console.log(error);
+      return { success: null, error: true };
+    });
+};
+
+const deleteAllAssets = async () => {
+  const assets = await Assets.find();
+
+  for (let asset of assets) {
+    deleteAssets(asset._id).then((status) => {
+      status ? console.log(`Asset ${asset._id} has been deleted`) : "";
+    });
+  }
+};
+
+const deleteAssets = async (_id) => {
+  const response = await Assets.deleteOne(_id);
+  return response.acknowledged;
+};
+
+module.exports = { Assets, createAssets, deleteAssets, deleteAllAssets };

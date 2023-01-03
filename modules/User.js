@@ -4,42 +4,34 @@ const _ = require("lodash");
 const { encryptPassword, comparePassword } = require("../services/password");
 const { createToken } = require("../services/token");
 
-/**
- * Creating Schema
- */
+/*<===== Schema and Model =====> */
 const userSchema = new mongoose.Schema({
   username: String,
-  password: String,
-  college: String,
   email: String,
   phone: String,
+  password: String,
+  college: { type: mongoose.ObjectId, ref: "College", required: false },
+  bookedAssets: [
+    {
+      _id: { type: mongoose.ObjectId, ref: "Assets", required: false },
+      bookedQuantities: Number,
+    },
+  ],
 });
 
-/**
- * Creating models
- */
 const User = mongoose.model("User", userSchema);
 
-const createUser = async (username, password, college, email, phone) => {
-  /**
-   * Function to create the user
-   * Password will be encrypted before saving to database
-   */
-  const doesUserExit = await getUser({ username });
+/* <===== CRUD OPERATIONS =====> */
+const createUser = async (username, password, email, phone) => {
+  const doesUserExit = await User.find({ username });
 
   if (doesUserExit.length == 0) {
     password = await encryptPassword(password);
 
-    let user = new User({ username, password, college, email, phone });
+    let user = new User({ username, password, email, phone: parseInt(phone) });
 
-    user.save().then(() => {
-      console.log(`User ${username} has been created`);
-    });
+    user.save();
 
-    /*Removing _id field*/
-    user = _.pick(user, ["username", "password", "college", "phone", "email"]);
-
-    /*Creating token*/
     const token = createToken(user);
 
     return { success: true, error: null, token };
@@ -52,70 +44,76 @@ const createUser = async (username, password, college, email, phone) => {
 };
 
 const getAllUsers = async () => {
-  /**
-   * Function to get all the user
-   */
-  const users = await User.find({});
-
-  return users;
-};
-
-const getUser = async (filter) => {
-  /**
-   * Function to get all the user
-   */
-
-  /**
-   * TODO: If the filter is in json format or not
-   */
-
-  const user = await User.find(filter);
-
-  return user;
-};
-
-const deleteUser = async (filter) => {
-  /**
-   * Function to delete particular user
-   */
-
-  /**
-   * TODO: If the filter is in json format or not
-   */
-  const deletedUser = await User.deleteOne(filter);
-
-  return deletedUser.acknowledged;
-};
-
-const deleteAllUsers = async () => {
-  /**
-   * Function to delete all particular user
-   */
-
   try {
     const users = await User.find({});
 
-    for (user of users) {
-      if (await deleteUser(user)) {
-        console.warn(`User ${user.username} has been removed`);
-      }
-    }
-    return true;
-  } catch (err) {
-    console.error(err);
+    return { success: true, error: null, users: users };
+  } catch (error) {
+    console.log(error);
+
+    return { success: null, error: true, users: users };
   }
 };
 
-const validateUser = async (username, password) => {
+const getUser = async (_id) => {
   /**
-   * Validate if the user exist in database or not
+   * TODO: If the filter is in json format or not
    */
-  const user = await User.findOne({ username: username }, { _id: 0 });
+  try {
+    const user = await User.findById(_id);
+
+    return { success: true, error: null, user: user };
+  } catch (error) {
+    console.log(error);
+
+    return { success: null, error: true, message: "User doesn't exist" };
+  }
+};
+
+const deleteUser = async (_id) => {
+  /**
+   * TODO: If the filter is in json format or not
+   */
+
+  try {
+    const deletedUser = await User.deleteOne(_id);
+
+    return deletedUser.acknowledged
+      ? { success: true, error: null }
+      : {
+          success: null,
+          error: true,
+          message: "Error while deleting the user",
+        };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      success: null,
+      error: true,
+      message: "Error while deleting the user " + _id,
+    };
+  }
+};
+
+const deleteAllUsers = async () => {
+  const users = await User.find({});
+
+  for (user of users) {
+    deleteUser(user._id).then((status) => {
+      status ? console.log(`User ${user._id} has been deleted`) : "";
+    });
+  }
+  return true;
+};
+
+const validateUser = async (username, password) => {
+  const user = await User.findOne({ username: username });
 
   if (user) {
     if (await comparePassword(password, user.password)) {
       const token = createToken(user);
-      
+
       return { success: true, error: null, token };
     } else {
       return { success: null, error: "Username and password doesn't match" };
