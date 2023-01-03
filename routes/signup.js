@@ -6,19 +6,20 @@ const { createUser } = require("../modules/User");
 router.post("/", async (req, res) => {
   const { username, password, college, email, phone } = req.body;
 
-  const { success, error, token } = await createUser(
-    username,
-    password,
-    college,
-    email,
-    phone
-  );
+  const user = await createUser(username, password, college, email, phone);
 
-  if (success) {
-    res.send({ success, token });
-  } else {
-    res.send({ success, error });
-  }
+  user.success
+    ? res.send({
+        success: user.success,
+        error: user.error,
+        userId: user.userId,
+      })
+    : res.send({
+        success: user.success,
+        error: user.error,
+        message: user.message,
+      });
+
   res.end();
 });
 

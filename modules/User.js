@@ -2,9 +2,7 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 
 const { encryptPassword, comparePassword } = require("../services/password");
-const { createToken } = require("../services/token");
 
-/*<===== Schema and Model =====> */
 const userSchema = new mongoose.Schema({
   username: String,
   email: String,
@@ -22,7 +20,6 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-/* <===== CRUD OPERATIONS =====> */
 const createUser = async (username, password, email, phone) => {
   const doesUserExit = await User.find({ username });
 
@@ -33,13 +30,12 @@ const createUser = async (username, password, email, phone) => {
 
     user.save();
 
-    const token = createToken(user);
-
-    return { success: true, error: null };
+    return { success: true, error: null, userId: user._id };
   } else {
     return {
       success: null,
-      error: `User with username ${username} already exist`,
+      error: true,
+      message: `User with username ${username} already exist`,
     };
   }
 };
@@ -113,14 +109,16 @@ const validateUser = async (username, password) => {
 
   if (user) {
     if (await comparePassword(password, user.password)) {
-      const token = createToken(user);
-
-      return { success: true, error: null };
+      return { success: true, error: null, userId: user._id };
     } else {
-      return { success: null, error: "Username and password doesn't match" };
+      return {
+        success: null,
+        error: true,
+        message: "Username and password doesn't match",
+      };
     }
   } else {
-    return { success: null, error: "User doesn't exist" };
+    return { success: null, error: true, message: "User doesn't exist" };
   }
 };
 

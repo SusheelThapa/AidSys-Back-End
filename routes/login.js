@@ -6,13 +6,19 @@ const { validateUser } = require("../modules/User");
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
 
-  const { success, error, token } = await validateUser(username, password);
+  const response = await validateUser(username, password);
 
-  if (success) {
-    res.send({ success, token });
-  } else {
-    res.send({ success, error });
-  }
+  response.success
+    ? res.send({
+        success: response.success,
+        error: response.error,
+        userID: response.userId,
+      })
+    : res.end({
+        success: response.success,
+        error: response.error,
+        message: response.message,
+      });
 
   res.end();
 });
