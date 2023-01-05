@@ -20,6 +20,7 @@ const login = require("./routes/login");
 const signup = require("./routes/signup");
 const colleges = require("./routes/colleges");
 const tags = require("./routes/tags");
+const token = require("./routes/token");
 
 app.use("/api/users", users);
 app.use("/api/assets", assets);
