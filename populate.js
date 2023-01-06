@@ -14,7 +14,7 @@ mongoose.set("strictQuery", true);
 
 /*Connecting to database*/
 mongoose
-  .connect("mongodb://localhost/aidsys")
+  .connect("mongodb://127.0.0.1/aidsys")
   .then(() => console.log("Successfully connect to mongodb"))
   .catch((err) => console.error("Connection err", err));
 
