@@ -14,7 +14,7 @@ mongoose.set("strictQuery", true);
 
 /*Connecting to database*/
 mongoose
-  .connect("mongodb://localhost/aidsys")
+  .connect("mongodb://127.0.0.1/aidsys")
   .then(() => console.log("Successfully connect to mongodb"))
   .catch((err) => console.error("Connection err", err));
 
@@ -88,6 +88,10 @@ const assetData = [
     name: "Badminton Court",
     quantities: 2,
   },
+  {
+    name: "Projector",
+    quantities: 10,
+  },
 ];
 
 /*College Details*/
@@ -116,6 +120,7 @@ const populate = async () => {
   const libraryHall = new Assets(assetData[4]);
   const tabletennis = new Assets(assetData[5]);
   const badminton = new Assets(assetData[6]);
+  const projector = new Assets(assetData[7]);
 
   const pulchowk = new College(collegeData[0]);
 
@@ -135,6 +140,7 @@ const populate = async () => {
   libraryHall.save();
   tabletennis.save();
   badminton.save();
+  projector.save();
 
   pulchowk.save();
 
@@ -158,7 +164,7 @@ const populate = async () => {
     badminton._id,
   ];
 
-  academics.assets = [libraryHall._id];
+  academics.assets = [libraryHall._id, projector._id];
   sports.assets = [
     football._id,
     cricket._id,
@@ -175,31 +181,32 @@ const populate = async () => {
   basketball.tags = [sports._id];
   tabletennis.tags = [sports._id];
   badminton.tags = [sports._id];
+  projector.tags = [academics._id];
 
   susheel.bookedAssets = [
-    { _id: football._id, bookedQuantities: 1 },
-    { _id: basketball._id, bookedQuantities: 1 },
+    { asset: football._id, bookedQuantities: 1 },
+    { asset: basketball._id, bookedQuantities: 1 },
   ];
   football.bookedBy = [susheel._id];
   basketball.bookedBy = [susheel._id];
 
   neeka.bookedAssets = [
-    { _id: badminton._id, bookedQuantities: 1 },
-    { _id: tabletennis._id, bookedQuantities: 1 },
+    { asset: badminton._id, bookedQuantities: 1 },
+    { asset: tabletennis._id, bookedQuantities: 1 },
   ];
   football.bookedBy = [neeka._id];
   basketball.bookedBy = [neeka._id];
 
   ujjwal.bookedAssets = [
-    { _id: cricket._id, bookedQuantities: 1 },
-    { _id: volleyball._id, bookedQuantities: 1 },
+    { asset: cricket._id, bookedQuantities: 1 },
+    { asset: volleyball._id, bookedQuantities: 1 },
   ];
   cricket.bookedBy = [ujjwal._id];
   volleyball.bookedBy = [ujjwal._id];
 
   rounak.bookedAssets = [
-    { _id: libraryHall._id, bookedQuantities: 1 },
-    { _id: tabletennis._id, bookedQuantities: 1 },
+    { asset: libraryHall._id, bookedQuantities: 1 },
+    { asset: tabletennis._id, bookedQuantities: 1 },
   ];
   libraryHall.bookedBy = [rounak._id];
   tabletennis.bookedBy = [rounak._id];

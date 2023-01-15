@@ -4,63 +4,75 @@ const _ = require("lodash");
 const express = require("express");
 const router = express.Router();
 
-const { createUser, validateUser } = require("../modules/User");
-const { createToken, getTokenData } = require("../services/token");
+const { User } = require("../modules/User");
+const { College } = require("../modules/College");
+const { Assets } = require("../modules/Asset");
 
-/**
- * Route for creation of user and sending back the jsonwebtoken
- */
-router.post("/createuser", async (req, res) => {
+router.get("/", async (req, res) => {
   /**
-   * TODO: Validation of the data that is sent in request(i.e username, password,college,email,phone)
+   * To get the list of all the user avaliable in the database
    */
 
-  const { username, password, college, email, phone } = req.body;
+  const users = await User.find({}, { password: 0, __v: 0 })
+    .populate("college", { assets: 0, address: 0, __v: 0 })
+    .populate("bookedAssets.asset", { tags: 0, bookedBy: 0, __v: 0 });
 
-  const { success, error, token } = await createUser(
-    username,
-    password,
-    college,
-    email,
-    phone
-  );
-
-  if (success) {
-    res.send({ success, token });
-  } else {
-    res.send({ success, error });
-  }
+  res.send(users);
   res.end();
 });
 
-router.post("/getuser", (req, res) => {
+router.get("/:_id", async (req, res) => {
   /**
-   * TODO: Verify that the token is there in body
+   * To get the details of user whose id is passed
    */
 
-  const { token } = req.body;
+  const { _id } = req.params;
 
-  let userDetails = getTokenData(token);
-  userDetails = _.pick(userDetails, ["username", "college", "email", "phone"]);
+  const user = await User.find({ _id }, { password: 0, __v: 0 })
+    .populate("college", { assets: 0, address: 0, __v: 0 })
+    .populate("bookedAssets.asset", { tags: 0, bookedBy: 0, __v: 0 });
 
-  res.send(userDetails);
+  res.send(user);
   res.end();
 });
 
-router.post("/login", async (req, res) => {
+router.post("/bookassets", async (req, res) => {
   /**
-   * TODO: Validation of the data that is sent in request(i.e username, password)
+   * To book the assets for a particular user.
+   * user id will be passed in the request body
    */
-  const { username, password } = await req.body;
 
-  const { success, error, token } = await validateUser(username, password);
+  const { userId, bookedAssets } = req.body;
 
-  if (success) {
-    res.send({ success, token });
-  } else {
-    res.send({ success, error });
-  }
+  const user = await User.findOne({ _id: userId }).populate();
 
+  bookedAssets.forEach(async (bookAsset) => {
+    /*Save the asset in user collection*/
+    user.bookedAssets.push(bookAsset);
+
+    const { asset: _id } = bookAsset;
+
+    const asset = await Assets.findOne({ _id });
+
+    /*Save user details in assets collection*/
+    asset.bookedBy.push(userId);
+
+    asset.save();
+  });
+
+  user.save();
+
+  /* Filter the data to be send back to client */
+  const response = _.pick(user, [
+    "_id",
+    "username",
+    "email",
+    "phone",
+    "bookedAssets",
+    "college",
+  ]);
+
+  res.send(response);
   res.end();
 });
 
