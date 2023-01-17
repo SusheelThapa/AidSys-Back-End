@@ -28,6 +28,7 @@ app.use("/api/login", login);
 app.use("/api/signup", signup);
 app.use("/api/colleges", colleges);
 app.use("/api/tags", tags);
+app.use("/api/token", token);
 
 app.listen(5000, () => {
   console.log("Listening on Port:5000");
