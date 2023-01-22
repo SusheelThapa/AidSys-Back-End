@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+const { Assets } = require("./Asset");
+const { Testimonial } = require("./Testimonial");
+const { Class } = require("./Class");
 /* <==== SCHEMA AND MODELS ====> */
 const collegeSchema = new mongoose.Schema({
   name: String,
@@ -75,19 +78,30 @@ const getCollege = async (_id) => {
       .populate("class", { __V: 0 })
       .populate("testimonials", { __V: 0 });
 
-    return { college };
-  } catch (error) {}
+    return { success: true, error: null, college: college };
+  } catch (error) {
+    console.log(error);
+    return {
+      success: null,
+      error: true,
+      message: "Error while retrieving data of provided college from database",
+    };
+  }
 };
 
 const getColleges = async () => {
   try {
     const colleges = await College.find({}, { __v: 0 });
 
-    return { colleges: colleges };
+    return { success: true, error: null, colleges };
   } catch (error) {
     console.log(error);
 
-    return { error: "Some error occurred" };
+    return {
+      success: null,
+      error: true,
+      message: "Error while retrieving list of college from database",
+    };
   }
 };
 
