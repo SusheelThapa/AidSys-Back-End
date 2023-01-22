@@ -37,7 +37,7 @@ ence enabling one-and-all present in the institution to make optimum use of the 
 
    ```sh
    JWT_SECRET_KEY="1qazxsw23edcvfr45tgb"
-   BCRYPT_SALT_ROUND=10;
+   BCRYPT_SALT_ROUND=10
    DATABASE=aidsys
    ```
 
@@ -46,7 +46,7 @@ ence enabling one-and-all present in the institution to make optimum use of the 
 2. Run the below command
 
    ```sh
-      node populateUser.js
+   node populate.js
    ```
 
 3. Then, you will see below message on your console.
