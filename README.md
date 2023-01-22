@@ -43,6 +43,12 @@ ence enabling one-and-all present in the institution to make optimum use of the 
 
 ### Setting up Database
 
+1. Installing node modules
+
+   ```sh
+   npm i
+   ```
+
 2. Run the below command
 
    ```sh
@@ -60,13 +66,7 @@ ence enabling one-and-all present in the institution to make optimum use of the 
 
 ### Installing packages
 
-2. Install the node modules
-
-   ```sh
-   npm i
-   ```
-
-3. Install `nodemon` globally as it is used to run the project instead of `node`.
+1. Install `nodemon` globally as it is used to run the project instead of `node`.
 
    ```sh
    npm i nodemon -g
