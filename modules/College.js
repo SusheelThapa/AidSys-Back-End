@@ -4,7 +4,13 @@ const mongoose = require("mongoose");
 const collegeSchema = new mongoose.Schema({
   name: String,
   address: String,
-  assets: [{ type: mongoose.ObjectId, ref: "Assests", required: false }],
+  description: String,
+  notices: [String],
+  assets: [{ type: mongoose.ObjectId, ref: "Assets", required: false }],
+  class: [{ type: mongoose.ObjectId, ref: "Class", required: false }],
+  testimonials: [
+    { type: mongoose.ObjectId, ref: "Testimonial", required: false },
+  ],
 });
 
 const College = mongoose.model("College", collegeSchema);
@@ -62,4 +68,34 @@ const deleteAllCollege = async () => {
   }
 };
 
-module.exports = { College, createCollege, deleteAllCollege, deleteCollege };
+const getCollege = async (_id) => {
+  try {
+    const college = await College.find({ _id }, { __v: 0 })
+      .populate("assets", { __V: 0 })
+      .populate("class", { __V: 0 })
+      .populate("testimonials", { __V: 0 });
+
+    return { college };
+  } catch (error) {}
+};
+
+const getColleges = async () => {
+  try {
+    const colleges = await College.find({}, { __v: 0 });
+
+    return { colleges: colleges };
+  } catch (error) {
+    console.log(error);
+
+    return { error: "Some error occurred" };
+  }
+};
+
+module.exports = {
+  College,
+  createCollege,
+  deleteAllCollege,
+  deleteCollege,
+  getCollege,
+  getColleges,
+};
