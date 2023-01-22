@@ -36,3 +36,5 @@ const getTestimonial = async () => {
   console.log(testimonial);
   return testimonial;
 };
+
+module.exports = { Testimonial, getTestimonial, createTestimonial };
