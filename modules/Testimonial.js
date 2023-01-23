@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const testimonialSchema = new mongoose.Schema({
-  studentId: { type: mongoose.ObjectId, ref: "User", required: false },
+  studentId: { type: mongoose.ObjectId, ref: "Student", required: false },
   message: String,
 });
 
