@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 const routeList = require("./routes/list");
-const users = require("./routes/users");
+const students = require("./routes/students");
 const assets = require("./routes/assets");
 const login = require("./routes/login");
 const signup = require("./routes/signup");
@@ -25,7 +25,7 @@ const token = require("./routes/token");
 const studentClass = require("./routes/class");
 
 app.use("/", routeList);
-app.use("/api/users", users);
+app.use("/api/students", students);
 app.use("/api/assets", assets);
 app.use("/api/login", login);
 app.use("/api/signup", signup);
