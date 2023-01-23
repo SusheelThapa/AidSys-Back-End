@@ -26,7 +26,7 @@ const createStudent = async (username, password, email, phone) => {
   if (doesStudentExist.length == 0) {
     password = await encryptPassword(password);
 
-    let student = new User({
+    let student = new Student({
       username,
       password,
       email,
