@@ -35,7 +35,7 @@ const createStudent = async (username, password, email, phone) => {
 
     student.save();
 
-    return { success: true, error: null, studentId: student._id };
+    return { success: true, error: null, _id: student._id };
   } else {
     return {
       success: null,

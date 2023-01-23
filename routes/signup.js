@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { createUser } = require("../modules/User");
+const { createStudent } = require("../modules/Student");
 
 router.post("/", async (req, res) => {
   /**
@@ -10,18 +10,18 @@ router.post("/", async (req, res) => {
 
   const { username, password, college, email, phone } = req.body;
 
-  const user = await createUser(username, password, college, email, phone);
+  const student = await createStudent(username, password, college, email, phone);
 
-  user.success
+  student.success
     ? res.send({
-        success: user.success,
-        error: user.error,
-        userId: user.userId,
+        success: student.success,
+        error: student.error,
+        studentId: student._id,
       })
     : res.send({
-        success: user.success,
-        error: user.error,
-        message: user.message,
+        success: student.success,
+        error: student.error,
+        message: student.message,
       });
 
   res.end();
