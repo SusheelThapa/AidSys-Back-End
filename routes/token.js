@@ -6,9 +6,9 @@ const { createToken, getTokenData } = require("../services/token");
 const router = express.Router();
 
 router.post("/create", async (req, res) => {
-  const { userID } = req.body;
+  const { studentID } = req.body;
 
-  const token = createToken({ userID });
+  const token = createToken({ studentID });
 
   res.send(token);
 });
