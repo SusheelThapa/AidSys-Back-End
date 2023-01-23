@@ -5,8 +5,10 @@ const bcrypt = require("bcryptjs");
 
 const { Assets } = require("./modules/Asset");
 const { College } = require("./modules/College");
-const { User } = require("./modules/User");
+const { Student } = require("./modules/Student");
 const { Tag } = require("./modules/Tag");
+const { Class } = require("./modules/Class");
+const { Testimonial } = require("./modules/Testimonial");
 
 const { BCRYPT_SALT_ROUND } = process.env;
 
@@ -26,12 +28,63 @@ const encryptPassword = (plainPassword) => {
   return hashedPassword;
 };
 
-/*User Details*/
-const userData = [
+/*Student Details*/
+const studentData = [
+  {
+    username: "susheelbahadurthapa",
+    password: "susheelbahadurthapa",
+    email: "077bct090.susheel@pcampus.edu.np",
+    phone: "+9770000000000",
+  },
+  {
+    username: "rajitdhakal",
+    password: "rajitdhakal",
+    email: "077bct090.rajit@pcampus.edu.np",
+    phone: "+9770000000000",
+  },
+  {
+    username: "alfabahadurthapa",
+    password: "alfabahadurthapa",
+    email: "077bct090.alfa@pcampus.edu.np",
+    phone: "+9770000000000",
+  },
+  {
+    username: "betabahadurthapa",
+    password: "betabahadurthapa",
+    email: "077bct090.beta@pcampus.edu.np",
+    phone: "+9770000000000",
+  },
+
+  {
+    username: "betashresbahadurtha",
+    password: "betashrestha",
+    email: "077bct090.beta@pcampus.edu.np",
+    phone: "+9770000000000",
+  },
+  {
+    username: "betashrestha",
+    password: "betashrestha",
+    email: "077bct090.beta@pcampus.edu.np",
+    phone: "+9770000000000",
+  },
+
   {
     username: "susheelthapa",
     password: "susheelthapa",
     email: "077bct090.susheel@pcampus.edu.np",
+    phone: "+9770000000000",
+  },
+
+  {
+    username: "alfathapa",
+    password: "alfathapa",
+    email: "077bct090.alfa@pcampus.edu.np",
+    phone: "+9770000000000",
+  },
+  {
+    username: "betathapa",
+    password: "betathapa",
+    email: "077bct090.beta@pcampus.edu.np",
     phone: "+9770000000000",
   },
   {
@@ -54,8 +107,8 @@ const userData = [
   },
 ];
 
-for (let user of userData) {
-  user["password"] = encryptPassword(user["password"]);
+for (let student of studentData) {
+  student["password"] = encryptPassword(student["password"]);
 }
 
 /*Assets Details*/
@@ -95,23 +148,69 @@ const assetData = [
 ];
 
 /*College Details*/
-const collegeData = [{ name: "Pulchowk Campus", address: "Lalitpur" }];
+const collegeData = [
+  {
+    name: "Pulchowk Campus",
+    address: "Lalitpur",
+    description:
+      "Pulchowk Campus is the central campus of the Institute of Engineering. It was established in 1972 (2029 B.S) as one of the constituent campuses of the Institute of Engineering and is situated at the heart of the Lalitpur city at Pulchowk. Initially, it was started for the production of trade-level manpower to fulfill the nation’s need in the field of Engineering. Pulchowk campus offered diploma level (intermediate level with three years duration) courses in various engineering disciplines since 1973 (2030 BS) but diploma level courses are phased out now. Pulchowk campus has been offering bachelor’s degree courses in various engineering disciplines since 1984 (2041 BS).",
+    notices: ["Locus", "Locus", "Locus"],
+  },
+];
 
 /*Tag Details*/
 const tagData = [{ name: "Sports" }, { name: "Academics" }];
 
+/*Class Details*/
+const classData = [
+  { name: "BCT", notices: ["Locus", "Locus", "Locus"] },
+  { name: "BEX", notices: ["Locus", "Locus", "Locus"] },
+  { name: "BCE", notices: ["Locus", "Locus", "Locus"] },
+];
+
+/*Testimonail Details*/
+
+const testimonialData = [
+  {
+    message:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet placeat, eapossimus dicta ipsam sed illum reprehenderit beatae tempora enim dolor voluptas porro commodi fugit cumque accusantium provident cupiditate eligendi quasi ",
+  },
+  {
+    message:
+      "laborum autem! Doloribus earum, iure non nisi perferendis sint amet iusto nequesit est, quod delectus consequuntur quam aspernatur debitis impedit autemtenetur architecto? Quam quod modi porro at nisi quaerat beatae libero",
+  },
+  {
+    message:
+      "architecto aliquid expedita, eum soluta corrupti ipsam quisquam eveniet! Velitfugit maxime nulla eligendi laudantium quidem esse quia deserunt nihil temporeiure iste voluptatem nostrum asperiores molestiae quae tenetur consequuntur",
+  },
+  {
+    message:
+      "minima, numquam error laboriosam reprehenderit. Corporis, id voluptas eius etatque dolores harum obcaecati animi, quod labore facilis tempore. Repellataliquid laudantium amet dicta, perspiciatis enim qui saepe ullam animi, modi",
+  },
+];
 const populate = async () => {
-  /*Remvoing all the college, assets,tags and user detail if available*/
+  /*Remvoing all the college, assets,tags and student detail if available*/
   await College.deleteMany({});
-  await User.deleteMany({});
+  await Student.deleteMany({});
   await Assets.deleteMany({});
   await Tag.deleteMany({});
+  await Class.deleteMany({});
 
-  /*Creating user, assets and college details*/
-  const susheel = new User(userData[0]);
-  const neeka = new User(userData[1]);
-  const ujjwal = new User(userData[2]);
-  const rounak = new User(userData[3]);
+  await Testimonial.deleteMany({});
+
+  /*Creating student, assets and college details*/
+  const susheelbahadurthapa = new Student(studentData[0]);
+  const rajitdhakal = new Student(studentData[1]);
+  const alfabahadurthapa = new Student(studentData[2]);
+  const betabahadurthapa = new Student(studentData[3]);
+  const betashresbahadurtha = new Student(studentData[4]);
+  const betashrestha = new Student(studentData[5]);
+  const susheelthapa = new Student(studentData[6]);
+  const alfathapa = new Student(studentData[7]);
+  const betathapa = new Student(studentData[8]);
+  const neekamaharjan = new Student(studentData[9]);
+  const ujjwaljha = new Student(studentData[10]);
+  const rounakjha = new Student(studentData[11]);
 
   const football = new Assets(assetData[0]);
   const cricket = new Assets(assetData[1]);
@@ -127,11 +226,27 @@ const populate = async () => {
   const sports = new Tag(tagData[0]);
   const academics = new Tag(tagData[1]);
 
+  const bct = new Class(classData[0]);
+  const bex = new Class(classData[1]);
+  const bce = new Class(classData[2]);
+  const testimonialOne = new Testimonial(testimonialData[0]);
+  const testimonialTwo = new Testimonial(testimonialData[1]);
+  const testimonialThree = new Testimonial(testimonialData[2]);
+
   /*Saving into the database*/
-  susheel.save();
-  neeka.save();
-  ujjwal.save();
-  rounak.save();
+
+  susheelbahadurthapa.save();
+  rajitdhakal.save();
+  alfabahadurthapa.save();
+  betabahadurthapa.save();
+  betashresbahadurtha.save();
+  betashrestha.save();
+  susheelthapa.save();
+  alfathapa.save();
+  betathapa.save();
+  neekamaharjan.save();
+  ujjwaljha.save();
+  rounakjha.save();
 
   football.save();
   cricket.save();
@@ -147,12 +262,49 @@ const populate = async () => {
   sports.save();
   academics.save();
 
+  bct.save();
+  bex.save();
+  bce.save();
+
+  testimonialOne.save();
+  testimonialTwo.save();
+  testimonialThree.save();
+
   /*Creating relationship*/
 
-  susheel.college = pulchowk._id;
-  neeka.college = pulchowk._id;
-  rounak.college = pulchowk._id;
-  ujjwal.college = pulchowk._id;
+  susheelbahadurthapa.college = pulchowk._id;
+  rajitdhakal.college = pulchowk._id;
+  alfabahadurthapa.college = pulchowk._id;
+  betabahadurthapa.college = pulchowk._id;
+  betashresbahadurtha.college = pulchowk._id;
+  betashrestha.college = pulchowk._id;
+  susheelthapa.college = pulchowk._id;
+  alfathapa.college = pulchowk._id;
+  betathapa.college = pulchowk._id;
+  neekamaharjan.college = pulchowk._id;
+  ujjwaljha.college = pulchowk._id;
+  rounakjha.college = pulchowk._id;
+
+  bct.students = [
+    susheelbahadurthapa._id,
+    rajitdhakal._id,
+    alfabahadurthapa._id,
+    betabahadurthapa._id,
+  ];
+
+  bex.students = [
+    betashresbahadurtha._id,
+    betashrestha._id,
+    susheelthapa._id,
+    alfathapa._id,
+  ];
+
+  bce.students = [
+    betathapa._id,
+    neekamaharjan._id,
+    ujjwaljha._id,
+    rounakjha._id,
+  ];
 
   pulchowk.assets = [
     football._id,
@@ -183,34 +335,16 @@ const populate = async () => {
   badminton.tags = [sports._id];
   projector.tags = [academics._id];
 
-  susheel.bookedAssets = [
-    { asset: football._id, bookedQuantities: 1 },
-    { asset: basketball._id, bookedQuantities: 1 },
-  ];
-  football.bookedBy = [susheel._id];
-  basketball.bookedBy = [susheel._id];
+  testimonialOne.studentId = susheelbahadurthapa._id;
+  testimonialTwo.studentId = ujjwaljha._id;
+  testimonialThree.studentId = neekamaharjan._id;
 
-  neeka.bookedAssets = [
-    { asset: badminton._id, bookedQuantities: 1 },
-    { asset: tabletennis._id, bookedQuantities: 1 },
+  pulchowk.class = [bct._id, bex._id, bce._id];
+  pulchowk.testimonials = [
+    testimonialOne._id,
+    testimonialTwo._id,
+    testimonialThree._id,
   ];
-  football.bookedBy = [neeka._id];
-  basketball.bookedBy = [neeka._id];
-
-  ujjwal.bookedAssets = [
-    { asset: cricket._id, bookedQuantities: 1 },
-    { asset: volleyball._id, bookedQuantities: 1 },
-  ];
-  cricket.bookedBy = [ujjwal._id];
-  volleyball.bookedBy = [ujjwal._id];
-
-  rounak.bookedAssets = [
-    { asset: libraryHall._id, bookedQuantities: 1 },
-    { asset: tabletennis._id, bookedQuantities: 1 },
-  ];
-  libraryHall.bookedBy = [rounak._id];
-  tabletennis.bookedBy = [rounak._id];
-
   console.log("Done");
 };
 

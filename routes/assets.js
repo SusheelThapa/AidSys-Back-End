@@ -2,22 +2,18 @@ const _ = require("lodash");
 const express = require("express");
 const router = express.Router();
 
-const { Assets } = require("../modules/Asset");
-const { Tag } = require("../modules/Tag");
-const { User } = require("../modules/User");
+const { getAsset, getAssets } = require("../modules/Asset");
 
 router.get("/", async (req, res) => {
   /**
    * To get the list of all the assets present in the database
    */
 
-  const assets = await Assets.find({}, { __v: 0 })
-    .populate("tags", { name: 1, _id: 0 })
-    .populate("bookedBy", { _id: 1, username: 1 });
+  const assets = await getAssets();
 
   res.send(assets);
 
-  res.end();
+  res.end();``
 });
 
 router.get("/:_id", async (req, res) => {
@@ -26,9 +22,7 @@ router.get("/:_id", async (req, res) => {
    */
 
   const { _id } = req.params;
-  const asset = await Assets.find({ _id })
-    .populate("tags", { name: 1, _id: 0 })
-    .populate("bookedBy", { _id: 1, username: 1 });
+  const asset = await getAsset(_id);
 
   res.send(asset);
   res.end();

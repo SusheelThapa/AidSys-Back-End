@@ -4,7 +4,7 @@ const _ = require("lodash");
 const express = require("express");
 const router = express.Router();
 
-const { User } = require("../modules/User");
+const { Student, getAllStudents, getStudent } = require("../modules/Student");
 const { College } = require("../modules/College");
 const { Assets } = require("../modules/Asset");
 
@@ -13,11 +13,9 @@ router.get("/", async (req, res) => {
    * To get the list of all the user avaliable in the database
    */
 
-  const users = await User.find({}, { password: 0, __v: 0 })
-    .populate("college", { assets: 0, address: 0, __v: 0 })
-    .populate("bookedAssets.asset", { tags: 0, bookedBy: 0, __v: 0 });
+  const students = await getAllStudents();
 
-  res.send(users);
+  res.send(students);
   res.end();
 });
 
@@ -28,27 +26,25 @@ router.get("/:_id", async (req, res) => {
 
   const { _id } = req.params;
 
-  const user = await User.find({ _id }, { password: 0, __v: 0 })
-    .populate("college", { assets: 0, address: 0, __v: 0 })
-    .populate("bookedAssets.asset", { tags: 0, bookedBy: 0, __v: 0 });
+  const student = await getStudent(_id);
 
-  res.send(user);
+  res.send(student);
   res.end();
 });
 
 router.post("/bookassets", async (req, res) => {
   /**
-   * To book the assets for a particular user.
+   * To book the assets for a particular student.
    * user id will be passed in the request body
    */
 
   const { userId, bookedAssets } = req.body;
 
-  const user = await User.findOne({ _id: userId }).populate();
+  const user = await Student.findOne({ _id: userId }).populate();
 
   bookedAssets.forEach(async (bookAsset) => {
     /*Save the asset in user collection*/
-    user.bookedAssets.push(bookAsset);
+    student.bookedAssets.push(bookAsset);
 
     const { asset: _id } = bookAsset;
 
@@ -60,7 +56,7 @@ router.post("/bookassets", async (req, res) => {
     asset.save();
   });
 
-  user.save();
+  student.save();
 
   /* Filter the data to be send back to client */
   const response = _.pick(user, [
