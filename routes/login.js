@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { validateUser } = require("../modules/User");
+const { validateStudent } = require("../modules/Student");
 
 router.post("/", async (req, res) => {
   /**
@@ -9,13 +9,13 @@ router.post("/", async (req, res) => {
    */
   const { username, password } = req.body;
 
-  const response = await validateUser(username, password);
+  const response = await validateStudent(username, password);
 
   response.success
     ? res.send({
         success: response.success,
         error: response.error,
-        userID: response.userId,
+        studentID: response._id,
       })
     : res.end({
         success: response.success,

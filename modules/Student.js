@@ -121,11 +121,11 @@ const deleteAllStudent = async () => {
 };
 
 const validateStudent = async (username, password) => {
-  const user = await Student.findOne({ username: username });
+  const student = await Student.findOne({ username: username });
 
-  if (user) {
-    if (await comparePassword(password, Student.password)) {
-      return { success: true, error: null, userId: Student._id };
+  if (student) {
+    if (await comparePassword(password, student.password)) {
+      return { success: true, error: null, _id: student._id };
     } else {
       return {
         success: null,
