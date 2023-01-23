@@ -326,6 +326,12 @@ const populate = async () => {
     badminton._id,
   ];
 
+  susheelthapa.bookedAssets = [
+    { bookedQuantities: 1, asset: football._id },
+    { bookedQuantities: 1, asset: basketball._id },
+    { bookedQuantities: 1, asset: cricket._id },
+  ];
+
   libraryHall.tags = [academics._id];
   football.tags = [sports._id];
   cricket.tags = [sports._id];
