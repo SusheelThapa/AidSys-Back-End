@@ -5,6 +5,7 @@ const projectSchema = new mongoose.Schema({
   description: { type: String, required: true },
   link: { type: String, required: true },
   tags: [{ type: String, required: true }],
+  member: [{ name: String, link: String }],
 });
 
 const Project = mongoose.model("Project", projectSchema);
@@ -32,8 +33,6 @@ const createProject = async (name, description, link, tags = []) => {
 const getProjects = async () => {
   try {
     const projects = await Project.find({}, { __v: 0 });
-
-    console.log(projects);
 
     return { success: true, error: null, projects };
   } catch (error) {

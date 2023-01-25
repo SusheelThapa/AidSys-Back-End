@@ -120,36 +120,65 @@ const projects = [
     description: "Feel the VSUS, Fall for VSUS",
     link: "https://github.com/Rajendrakhanal/vsus",
     tags: ["Other"],
+    member: [
+      { name: "Rajendra Khanal", link: "https://github.com/Rajendrakhanal" },
+      { name: "Susheel Thapa", link: "https://github.com/Rajendrakhanal" },
+      { name: "Ujjwal Jha", link: "https://github.com/Ujj1225" },
+      {
+        name: "Saurav Kumar Mahato",
+        link: "https://github.com/SauravKumarMahato",
+      },
+    ],
   },
   {
     name: "A Phone Call",
     description: "Simulation of Call App",
     link: "https://github.com/SusheelThapa/A-Phone-Call",
     tags: ["Other"],
+    member: [
+      { name: "Susheel Thapa", link: "https://github.com/Rajendrakhanal" },
+      {
+        name: "Saurav Kumar Mahato",
+        link: "https://github.com/SauravKumarMahato",
+      },
+    ],
   },
   {
     name: "Fractal Generator",
     description: "Fractal Generator",
     link: "https://github.com/SuprimDevkota/SDL-Projects/tree/main/FractalGenerator",
     tags: ["Other"],
+    member: [
+      { name: "Suprim Devkota", link: "https://github.com/SuprimDevkota" },
+    ],
   },
   {
     name: "Sorting Visualizer",
     description: "Visualization of various sorting algorithm",
     link: "https://github.com/SuprimDevkota/SDL-Projects/tree/main/Visualizing-Sorting-Algorithms",
     tags: ["Other"],
+    member: [
+      { name: "Suprim Devkota", link: "https://github.com/SuprimDevkota" },
+    ],
   },
   {
     name: "GH-REST",
     description: "Show github data in website using github rest api",
     link: "https://github.com/parikshitadhikari/gh-rest",
     tags: ["Other"],
+    member: [
+      {
+        name: "Parikshit Adhikari",
+        link: "https://github.com/parikshitadhikari",
+      },
+    ],
   },
   {
     name: "Chrome Extension",
     description: "An extension for chrome browser",
     link: "https://github.com/Ujj1225/Chrome-Extension",
     tags: ["Other"],
+    member: [{ name: "Ujjwal Jha", link: "https://github.com/Ujj1225" }],
   },
 ];
 /*Assets Details*/
