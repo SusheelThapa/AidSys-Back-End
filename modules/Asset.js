@@ -8,6 +8,12 @@ const assetsSchema = new mongoose.Schema({
   totalQuantities: Number,
   tags: [{ type: mongoose.ObjectId, ref: "Tag", required: false }],
   bookedBy: [{ type: mongoose.ObjectId, ref: "Student", required: false }],
+  bookedHistory: [
+    {
+      studentID: { type: mongoose.ObjectId, ref: "Student", required: false },
+      bookedDate: Date,
+    },
+  ],
 });
 
 const Assets = mongoose.model("Assets", assetsSchema);
