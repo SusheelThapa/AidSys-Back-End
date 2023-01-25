@@ -45,4 +45,19 @@ const getProjects = async () => {
   }
 };
 
-module.exports = { Project, createProject, getProjects };
+const getProject = async (_id) => {
+  try {
+    const project = await Project.find({ _id }, { __v: 0 });
+
+    return { success: true, error: null, project };
+  } catch (error) {
+    console.log(error);
+    return {
+      success: null,
+      error: true,
+      message: "Error while  getting list of all the project",
+    };
+  }
+};
+
+module.exports = { Project, createProject, getProjects, getProject };
