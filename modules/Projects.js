@@ -10,14 +10,14 @@ const projectSchema = new mongoose.Schema({
 
 const Project = mongoose.model("Project", projectSchema);
 
-const createProject = async (name, description, link, tags = []) => {
+const createProject = async (name, description, link, tags ,member) => {
   try {
-    const newProject = new Project({ name, description, link, tags });
+    const newProject = new Project({ name, description, link, tags,member });
 
     newProject.save().then((response) => {
       console.log(`Project ${name} has been created with id ${response._id}`);
 
-      return { success: true, error: nulll, _id: newProject._id };
+      return { success: true, error: null, _id: newProject._id };
     });
   } catch (error) {
     console.log(error);
