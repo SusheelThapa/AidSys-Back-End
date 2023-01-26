@@ -65,28 +65,24 @@ const createStudent = async (
 
     student.save();
 
-    return { success: true, error: null, _id: student._id };
+    return { _id: student._id };
   }
 };
 
 const getStudent = async (_id) => {
   try {
-    const students = await Student.findOne(
+    const student = await Student.findOne(
       { _id },
       { password: 0, __v: 0, authentication: 0 }
     )
       .populate("projects", { _id: 0, __v: 0 })
       .populate("bookedAssets", { __v: 0 });
 
-    return { success: true, error: null, students: students };
+    return student;
   } catch (error) {
     console.log(error);
 
-    return {
-      success: null,
-      error: true,
-      message: "Error while retrieving details about students",
-    };
+    return undefined;
   }
 };
 

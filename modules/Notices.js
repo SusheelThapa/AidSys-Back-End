@@ -12,6 +12,8 @@ const createNotice = async (heading, description) => {
   const notice = new Notice({ heading, description });
 
   notice.save();
+
+  return { _id: notice._id };
 };
 
 const getNotices = async () => {
@@ -21,4 +23,4 @@ const getNotice = async (_id) => {
   return await Notice.findOne({ _id }, { __v: 0 });
 };
 
-module.exports = { Notice, getNotices, createNotice,getNotice };
+module.exports = { Notice, getNotices, createNotice, getNotice };

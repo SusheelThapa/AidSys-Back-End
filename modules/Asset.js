@@ -27,30 +27,18 @@ const createAssets = async (name, description) => {
 
   asset.save();
 
-  return {
-    success: true,
-    error: null,
-    assetId: asset._id,
-  };
+  return { _id: asset._id };
 };
 
 const getAssets = async () => {
   try {
     const assets = await Assets.find({}, { __v: 0 });
 
-    return {
-      success: true,
-      error: null,
-      assets,
-    };
+    return assets;
   } catch (error) {
     console.log(error);
 
-    return {
-      success: null,
-      error: true,
-      message: "Error occured while retrieving list of all the assets",
-    };
+    return undefined;
   }
 };
 
@@ -60,19 +48,11 @@ const getAsset = async (_id) => {
       .populate("previousBooking.studentID", { name: 1 })
       .populate("review.studentID", { name: 1 });
 
-    return {
-      success: true,
-      error: null,
-      asset,
-    };
+    return asset;
   } catch (error) {
     console.log(error);
 
-    return {
-      success: null,
-      error: true,
-      message: "Error occured while retrieving list of all the assets",
-    };
+    return undefined;
   }
 };
 

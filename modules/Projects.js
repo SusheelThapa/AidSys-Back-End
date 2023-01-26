@@ -31,17 +31,11 @@ const createProject = async (
 
     project.save();
 
-    console.log(`Project ${name} has been created with id ${project._id}`);
-
-    return { success: true, error: null, _id: project._id };
+    return { _id: project._id };
   } catch (error) {
     console.log(error);
 
-    return {
-      success: null,
-      error: true,
-      message: "Error while create project",
-    };
+    return undefined;
   }
 };
 
