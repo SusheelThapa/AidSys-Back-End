@@ -7,6 +7,8 @@ const {
   createProject,
 } = require("../modules/Projects");
 
+const { Student } = require("../modules/Student");
+
 router.get("/", async (req, res) => {
   const projects = await getProjects();
 
@@ -25,10 +27,23 @@ router.get("/:_id", async (req, res) => {
 });
 
 router.post("/add", async (req, res) => {
-  const { name, description, link, tags, member } = req.body.project;
+  const { name, description, link, owner, catgories, teammember } = req.body;
 
-  await createProject(name, description, link, tags, member);
+  const project = await createProject(
+    name,
+    description,
+    link,
+    owner,
+    catgories,
+    teammember
+  );
 
-  res.send({ succes: true });
+  const student = await Student.findOne({ _id: owner });
+
+  student.projects.push(project._id);
+
+  student.save();
+
+  res.send({ success: true });
 });
 module.exports = router;
