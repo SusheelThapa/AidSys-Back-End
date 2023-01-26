@@ -8,9 +8,37 @@ router.post("/", async (req, res) => {
    * create the user based on passed credentials
    */
 
-  const { username, password, college, email, phone } = req.body;
+  const {
+    name,
+    faculty,
+    batch,
+    interest,
+    bio,
+    phonenumber,
+    email,
+    githubLink,
+    faceboook,
+    instagram,
+    twitter,
+    username,
+    password,
+  } = req.body;
 
-  const student = await createStudent(username, password, college, email, phone);
+  const student = await createStudent(
+    name,
+    faculty,
+    batch,
+    interest,
+    bio,
+    phonenumber,
+    email,
+    githubLink,
+    faceboook,
+    instagram,
+    twitter,
+    username,
+    password
+  );
 
   student.success
     ? res.send({

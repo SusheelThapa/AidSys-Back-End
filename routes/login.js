@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const { validateStudent } = require("../modules/Student");
+const { validateStudent, Student } = require("../modules/Student");
+const { validateAuth } = require("../modules/Auth");
 
 router.post("/", async (req, res) => {
   /**
@@ -9,19 +10,22 @@ router.post("/", async (req, res) => {
    */
   const { username, password } = req.body;
 
-  const response = await validateStudent(username, password);
+  const authId = await validateAuth(username, password);
 
-  response.success
-    ? res.send({
-        success: response.success,
-        error: response.error,
-        studentID: response._id,
-      })
-    : res.end({
-        success: response.success,
-        error: response.error,
-        message: response.message,
-      });
+  if (authId === undefined) {
+    res.end({
+      success: null,
+      error: true,
+      message: "Username and password doesn't match",
+    });
+  } else {
+    const student = await Student.find({ authentication: authId }, { _id: 1 });
+    res.send({
+      success: true,
+      error: null,
+      studentID: student._id,
+    });
+  }
 
   res.end();
 });
