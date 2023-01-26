@@ -436,7 +436,7 @@ const notices = [
 ];
 
 /*Project Details*/
-const classProjects = [
+const projects = [
   {
     name: "VSUS",
     description: "Feel the VSUS, Fall for VSUS",
@@ -475,12 +475,13 @@ const classProjects = [
     ],
   },
   {
-    name: "Sorting Visualizer",
-    description: "Visualization of various sorting algorithm",
-    link: "https://github.com/SuprimDevkota/SDL-Projects/tree/main/Visualizing-Sorting-Algorithms",
-    categories: ["Other"],
+    name: "Call Break",
+    description: "Call Break",
+    link: "https://github.com/SwikarGautam/Call-Break",
+    categories: ["Other", "Card Game"],
     teammember: [
-      { name: "Suprim Devkota", link: "https://github.com/SuprimDevkota" },
+      { name: "Sujan Koirala", link: "https://github.com/Sujan-Koirala021" },
+      { name: "Swikar Gautamn", link: "https://github.com/SwikarGautam" },
     ],
   },
   {
@@ -502,9 +503,7 @@ const classProjects = [
     categories: ["Other"],
     teammember: [{ name: "Ujjwal Jha", link: "https://github.com/Ujj1225" }],
   },
-];
 
-const projects = [
   {
     name: "Smart City App",
     description:
