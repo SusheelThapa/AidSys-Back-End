@@ -7,9 +7,9 @@ const { Student } = require("../modules/Student");
 const router = express.Router();
 
 router.post("/create", async (req, res) => {
-  const { studentID } = req.body;
+  const { _id } = req.body;
 
-  const token = createToken({ studentID });
+  const token = createToken({ _id });
 
   res.send(token);
 });
@@ -19,7 +19,7 @@ router.post("/data", async (req, res) => {
 
   const data = getTokenData(token);
 
-  const studentIsValid = await Student.find({ _id: data.studentID });
+  const studentIsValid = await Student.find({ _id: data._id });
 
   studentIsValid.length > 0
     ? res.send(data)
