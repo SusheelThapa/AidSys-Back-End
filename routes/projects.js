@@ -44,6 +44,7 @@ router.post("/add", async (req, res) => {
 
   student.save();
 
-  res.send({ success: true });
+  res.send(project);
 });
+
 module.exports = router;

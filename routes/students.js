@@ -4,26 +4,10 @@ const _ = require("lodash");
 const express = require("express");
 const router = express.Router();
 
-const { Student, getAllStudents, getStudent } = require("../modules/Student");
-const { College } = require("../modules/College");
+const { Student, getStudent } = require("../modules/Student");
 const { Assets } = require("../modules/Asset");
 
-router.get("/", async (req, res) => {
-  /**
-   * To get the list of all the user avaliable in the database
-   */
-
-  const students = await getAllStudents();
-
-  res.send(students);
-  res.end();
-});
-
 router.get("/:_id", async (req, res) => {
-  /**
-   * To get the details of user whose id is passed
-   */
-
   const { _id } = req.params;
 
   const student = await getStudent(_id);
@@ -32,6 +16,7 @@ router.get("/:_id", async (req, res) => {
   res.end();
 });
 
+/*TODO: Pachi herxu yesma*/
 router.post("/bookassets", async (req, res) => {
   /**
    * To book the assets for a particular student.

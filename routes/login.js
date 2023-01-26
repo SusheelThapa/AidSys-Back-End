@@ -13,18 +13,17 @@ router.post("/", async (req, res) => {
   const authId = await validateAuth(username, password);
 
   if (authId === undefined) {
-    res.end({
+    res.send({
       success: null,
       error: true,
       message: "Username and password doesn't match",
     });
   } else {
-    const student = await Student.find({ authentication: authId }, { _id: 1 });
-    res.send({
-      success: true,
-      error: null,
-      studentID: student._id,
-    });
+    const student = await Student.findOne(
+      { authentication: authId },
+      { _id: 1 }
+    );
+    res.send({ _id: student._id });
   }
 
   res.end();

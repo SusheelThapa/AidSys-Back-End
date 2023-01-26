@@ -8,7 +8,7 @@ router.post("/add", async (req, res) => {
 
   const notice = await createNotice(heading, description);
 
-  res.send({ notice });
+  res.send(notice);
 });
 
 router.get("/", async (req, res) => {

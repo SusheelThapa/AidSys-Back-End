@@ -23,6 +23,8 @@ const getTokenData = (token) => {
    * Function to retrieve data from the token
    */
   const { data: tokenData } = verifyToken(token);
+
+  console.log(tokenData);
   return tokenData;
 };
 
