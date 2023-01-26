@@ -22,6 +22,7 @@ const signup = require("./routes/signup");
 const tags = require("./routes/tags");
 const token = require("./routes/token");
 const projects = require("./routes/projects");
+const notices = require("./routes/notices");
 
 app.use("/", routeList);
 app.use("/api/students", students);
@@ -31,6 +32,7 @@ app.use("/api/signup", signup);
 app.use("/api/tags", tags);
 app.use("/api/token", token);
 app.use("/api/projects", projects);
+app.use("/api/notices", notices);
 
 app.listen(5000, () => {
   console.log("Listening on Port:5000");
