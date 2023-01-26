@@ -71,7 +71,7 @@ const createStudent = async (
 
 const getStudent = async (_id) => {
   try {
-    const students = await Student.find(
+    const students = await Student.findOne(
       { _id },
       { password: 0, __v: 0, authentication: 0 }
     )
