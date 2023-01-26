@@ -9,6 +9,7 @@ const { Student } = require("./modules/Student");
 const { Tag } = require("./modules/Tag");
 const { Class } = require("./modules/Class");
 const { Testimonial } = require("./modules/Testimonial");
+const { Project } = require("./modules/Projects");
 
 const { BCRYPT_SALT_ROUND } = process.env;
 
@@ -111,6 +112,75 @@ for (let student of studentData) {
   student["password"] = encryptPassword(student["password"]);
 }
 
+/*Project Details*/
+
+const projects = [
+  {
+    name: "VSUS",
+    description: "Feel the VSUS, Fall for VSUS",
+    link: "https://github.com/Rajendrakhanal/vsus",
+    tags: ["Other"],
+    member: [
+      { name: "Rajendra Khanal", link: "https://github.com/Rajendrakhanal" },
+      { name: "Susheel Thapa", link: "https://github.com/Rajendrakhanal" },
+      { name: "Ujjwal Jha", link: "https://github.com/Ujj1225" },
+      {
+        name: "Saurav Kumar Mahato",
+        link: "https://github.com/SauravKumarMahato",
+      },
+    ],
+  },
+  {
+    name: "A Phone Call",
+    description: "Simulation of Call App",
+    link: "https://github.com/SusheelThapa/A-Phone-Call",
+    tags: ["Other"],
+    member: [
+      { name: "Susheel Thapa", link: "https://github.com/Rajendrakhanal" },
+      {
+        name: "Saurav Kumar Mahato",
+        link: "https://github.com/SauravKumarMahato",
+      },
+    ],
+  },
+  {
+    name: "Fractal Generator",
+    description: "Fractal Generator",
+    link: "https://github.com/SuprimDevkota/SDL-Projects/tree/main/FractalGenerator",
+    tags: ["Other"],
+    member: [
+      { name: "Suprim Devkota", link: "https://github.com/SuprimDevkota" },
+    ],
+  },
+  {
+    name: "Sorting Visualizer",
+    description: "Visualization of various sorting algorithm",
+    link: "https://github.com/SuprimDevkota/SDL-Projects/tree/main/Visualizing-Sorting-Algorithms",
+    tags: ["Other"],
+    member: [
+      { name: "Suprim Devkota", link: "https://github.com/SuprimDevkota" },
+    ],
+  },
+  {
+    name: "GH-REST",
+    description: "Show github data in website using github rest api",
+    link: "https://github.com/parikshitadhikari/gh-rest",
+    tags: ["Other"],
+    member: [
+      {
+        name: "Parikshit Adhikari",
+        link: "https://github.com/parikshitadhikari",
+      },
+    ],
+  },
+  {
+    name: "Chrome Extension",
+    description: "An extension for chrome browser",
+    link: "https://github.com/Ujj1225/Chrome-Extension",
+    tags: ["Other"],
+    member: [{ name: "Ujjwal Jha", link: "https://github.com/Ujj1225" }],
+  },
+];
 /*Assets Details*/
 const assetData = [
   {
@@ -195,7 +265,7 @@ const populate = async () => {
   await Assets.deleteMany({});
   await Tag.deleteMany({});
   await Class.deleteMany({});
-
+  await Project.deleteMany({});
   await Testimonial.deleteMany({});
 
   /*Creating student, assets and college details*/
@@ -233,6 +303,13 @@ const populate = async () => {
   const testimonialTwo = new Testimonial(testimonialData[1]);
   const testimonialThree = new Testimonial(testimonialData[2]);
 
+  const vsus = new Project(projects[0]);
+  const aPhoneCall = new Project(projects[1]);
+  const fractalGenerator = new Project(projects[2]);
+  const sortingVisualizer = new Project(projects[3]);
+  const ghRest = new Project(projects[4]);
+  const chromeExtension = new Project(projects[5]);
+
   /*Saving into the database*/
 
   susheelbahadurthapa.save();
@@ -269,6 +346,13 @@ const populate = async () => {
   testimonialOne.save();
   testimonialTwo.save();
   testimonialThree.save();
+
+  vsus.save();
+  aPhoneCall.save();
+  fractalGenerator.save();
+  sortingVisualizer.save();
+  ghRest.save();
+  chromeExtension.save();
 
   /*Creating relationship*/
 

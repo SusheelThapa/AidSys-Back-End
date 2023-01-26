@@ -4,6 +4,7 @@ const classSchema = new mongoose.Schema({
   name: { type: String, required: true },
   notices: [{ type: String, required: false }],
   students: [{ type: mongoose.ObjectId, ref: "User.js", required: false }],
+  tag: [{ type: String, required: false }],
 });
 
 const Class = mongoose.model("Class", classSchema);
@@ -15,7 +16,7 @@ const createClass = async (name) => {
     newClass.save().then((response) => {
       console.log(`Class ${name} has been created with id ${response._id}`);
 
-      return { success: true, error: nulll, _id: newClass._id };
+      return { success: true, error: null, _id: newClass._id };
     });
   } catch (error) {
     console.log("Some error occured while creating college", error);
