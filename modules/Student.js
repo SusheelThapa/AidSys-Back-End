@@ -2,54 +2,81 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 
 const { encryptPassword, comparePassword } = require("../services/password");
+const { createNewAuth } = require("./Auth");
 
 const studentSchema = new mongoose.Schema({
-  username: String,
+  name: String,
+  faculty: String,
+  batch: String,
+  interest: String,
+  bio: String,
+  phonenumber: String,
   email: String,
-  phone: String,
-  password: String,
-  college: { type: mongoose.ObjectId, ref: "College", required: false },
-  bookedAssets: [
-    {
-      _id: false,
-      asset: { type: mongoose.ObjectId, ref: "Assets", required: false },
-      bookedQuantities: Number,
-    },
-  ],
+  githubLink: String,
+  faceboook: String,
+  instagram: String,
+  twitter: String,
+  authentication: mongoose.ObjectId,
+  bookedAssets: [{ type: mongoose.ObjectId, ref: "Assets", required: false }],
+  projects: [{ type: mongoose.ObjectId, ref: "Project", required: false }],
 });
 
 const Student = mongoose.model("Student", studentSchema);
 
-const createStudent = async (username, password, email, phone) => {
-  const doesStudentExist = await Student.find({ username });
+const createStudent = async (
+  name,
+  faculty,
+  batch,
+  interest,
+  bio,
+  phonenumber,
+  email,
+  githubLink,
+  faceboook,
+  instagram,
+  twitter,
+  username,
+  password
+) => {
+  const authId = await createNewAuth(username, password);
 
-  if (doesStudentExist.length == 0) {
-    password = await encryptPassword(password);
-
-    let student = new Student({
-      username,
-      password,
+  if (authId === undefined) {
+    return {
+      success: null,
+      error: true,
+      message: `${username} and ${password} doesn't match`,
+    };
+  } else {
+    const student = new Student({
+      name,
+      faculty,
+      batch,
+      interest,
+      bio,
+      phonenumber,
       email,
-      phone: parseInt(phone),
+      githubLink,
+      faceboook,
+      instagram,
+      twitter,
     });
+
+    student.authentication = authId;
 
     student.save();
 
     return { success: true, error: null, _id: student._id };
-  } else {
-    return {
-      success: null,
-      error: true,
-      message: `Student with username ${username} already exist`,
-    };
   }
 };
 
-const getAllStudents = async () => {
+const getStudent = async (_id) => {
   try {
-    const students = await Student.find({}, { password: 0, __v: 0 })
-      .populate("college", { assets: 0, address: 0, __v: 0 })
-      .populate("bookedAssets.asset", { tags: 0, bookedBy: 0, __v: 0 });
+    const students = await Student.find(
+      { _id },
+      { password: 0, __v: 0, authentication: 0 }
+    )
+      .populate("projects", { _id: 0, __v: 0 })
+      .populate("bookedAssets", { __v: 0 });
 
     return { success: true, error: null, students: students };
   } catch (error) {
@@ -63,87 +90,8 @@ const getAllStudents = async () => {
   }
 };
 
-const getStudent = async (_id) => {
-  /**
-   * TODO: If the filter is in json format or not
-   */
-  try {
-    const student = await Student.find({ _id }, { password: 0, __v: 0 })
-      .populate("college", { assets: 0, address: 0, __v: 0 })
-      .populate("bookedAssets.asset", { tags: 0, bookedBy: 0, __v: 0 });
-
-    return { success: true, error: null, student: student };
-  } catch (error) {
-    console.log(error);
-
-    return { success: null, error: true, message: "User doesn't exist" };
-  }
-};
-/**
- * TODO: Need to check delete function via route
- */
-
-const deleteStudent = async (_id) => {
-  /**
-   * TODO: If the filter is in json format or not
-   */
-
-  try {
-    const deletedStudent = await Student.deleteOne(_id);
-
-    return deletedStudent.acknowledged
-      ? { success: true, error: null }
-      : {
-          success: null,
-          error: true,
-          message: "Error while deleting the user",
-        };
-  } catch (error) {
-    console.log(error);
-
-    return {
-      success: null,
-      error: true,
-      message: "Error while deleting the user " + _id,
-    };
-  }
-};
-
-const deleteAllStudent = async () => {
-  const students = await Student.find({});
-
-  for (student of students) {
-    deleteStudent(student._id).then((status) => {
-      status ? console.log(`User ${student._id} has been deleted`) : "";
-    });
-  }
-  return true;
-};
-
-const validateStudent = async (username, password) => {
-  const student = await Student.findOne({ username: username });
-
-  if (student) {
-    if (await comparePassword(password, student.password)) {
-      return { success: true, error: null, _id: student._id };
-    } else {
-      return {
-        success: null,
-        error: true,
-        message: "Username and password doesn't match",
-      };
-    }
-  } else {
-    return { success: null, error: true, message: "User doesn't exist" };
-  }
-};
-
 module.exports = {
   Student,
   createStudent,
   getStudent,
-  getAllStudents,
-  deleteStudent,
-  deleteAllStudent,
-  validateStudent,
 };

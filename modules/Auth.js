@@ -41,3 +41,5 @@ const validateAuth = async (username, password) => {
 
   return undefined;
 };
+
+module.exports = { Auth, createNewAuth, validateAuth };
