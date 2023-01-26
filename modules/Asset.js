@@ -1,53 +1,37 @@
 const mongoose = require("mongoose");
-const { Tag } = require("./Tag");
 const { Student } = require("./Student");
 
-/*<===== SCHEMA AND MODEL =====> */
 const assetsSchema = new mongoose.Schema({
   name: String,
-  totalQuantities: Number,
-  tags: [{ type: mongoose.ObjectId, ref: "Tag", required: false }],
-  bookedBy: [{ type: mongoose.ObjectId, ref: "Student", required: false }],
-  bookedHistory: [
+  description: String,
+  status: { type: String, default: "Avaliable" },
+  previousBooking: [
     {
       studentID: { type: mongoose.ObjectId, ref: "Student", required: false },
-      bookedDate: Date,
+      bookedData: Date,
+    },
+  ],
+  rating: { type: Number, default: 96 },
+  review: [
+    {
+      studentID: { type: mongoose.ObjectId, ref: "Student", required: false },
+      message: String,
     },
   ],
 });
 
 const Assets = mongoose.model("Assets", assetsSchema);
 
-/* <===== CRUD OPERATION=====> */
-const createAssets = async (name, quantities) => {
-  const asset = new Assets({ name, quantities });
+const createAssets = async (name, description) => {
+  const asset = new Assets({ name, description });
 
-  asset
-    .save()
-    .then((response) => {
-      console.log(`Assets ${name} has been save with id ${response._id}`);
+  asset.save();
 
-      return { success: true, error: null };
-    })
-    .catch((error) => {
-      console.log(error);
-      return { success: null, error: true };
-    });
-};
-
-const deleteAllAssets = async () => {
-  const assets = await Assets.find();
-
-  for (let asset of assets) {
-    deleteAssets(asset._id).then((status) => {
-      status ? console.log(`Asset ${asset._id} has been deleted`) : "";
-    });
-  }
-};
-
-const deleteAssets = async (_id) => {
-  const response = await Assets.deleteOne(_id);
-  return response.acknowledged;
+  return {
+    success: true,
+    error: null,
+    assetId: asset._id,
+  };
 };
 
 const getAssets = async () => {
@@ -73,8 +57,8 @@ const getAssets = async () => {
 const getAsset = async (_id) => {
   try {
     const asset = await Assets.findOne({ _id }, { __v: 0 })
-      .populate("tags", { name: 1, _id: 0 })
-      .populate("bookedBy", { _id: 1, username: 1 });
+      .populate("previousBooking.studentID", { name: 1 })
+      .populate("review.studentID", { name: 1 });
 
     return {
       success: true,
@@ -91,11 +75,10 @@ const getAsset = async (_id) => {
     };
   }
 };
+
 module.exports = {
   Assets,
   createAssets,
-  deleteAssets,
-  deleteAllAssets,
   getAsset,
   getAssets,
 };
