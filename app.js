@@ -19,10 +19,8 @@ const students = require("./routes/students");
 const assets = require("./routes/assets");
 const login = require("./routes/login");
 const signup = require("./routes/signup");
-const colleges = require("./routes/colleges");
 const tags = require("./routes/tags");
 const token = require("./routes/token");
-const studentClass = require("./routes/class");
 const projects = require("./routes/projects");
 
 app.use("/", routeList);
@@ -30,10 +28,8 @@ app.use("/api/students", students);
 app.use("/api/assets", assets);
 app.use("/api/login", login);
 app.use("/api/signup", signup);
-app.use("/api/colleges", colleges);
 app.use("/api/tags", tags);
 app.use("/api/token", token);
-app.use("/api/class", studentClass);
 app.use("/api/projects", projects);
 
 app.listen(5000, () => {
