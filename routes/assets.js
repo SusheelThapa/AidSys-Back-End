@@ -62,4 +62,17 @@ router.post("/unbook", async (req, res) => {
   res.send({ _id: assetID });
 });
 
+router.post("/review", async (req, res) => {
+  const { studentID, assetID, message } = req.body;
+
+  const asset = await getAsset(assetID);
+
+  asset.review.unshift({ studentID, message });
+
+  asset.save();
+
+  res.send({ _id: assetID });
+  res.end();
+});
+
 module.exports = router;
