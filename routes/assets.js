@@ -40,6 +40,23 @@ router.post("/book", async (req, res) => {
   student.save();
 
   asset.status = "NotAvailable";
+  asset.previousBooking.unshift({ studentID: student._id });
+  asset.save();
+
+  res.send({ _id: assetID });
+});
+
+router.post("/unbook", async (req, res) => {
+  const { studentID, assetID } = req.body;
+
+  const student = await getStudent(studentID);
+  const asset = await getAsset(assetID);
+
+  const assetIndex = student.bookedAssets.indexOf(asset._id);
+  student.bookedAssets.splice(assetIndex, 1);
+  student.save();
+
+  asset.status = "Avaliable";
   asset.save();
 
   res.send({ _id: assetID });

@@ -8,7 +8,7 @@ const assetsSchema = new mongoose.Schema({
   previousBooking: [
     {
       studentID: { type: mongoose.ObjectId, ref: "Student", required: false },
-      bookedData: Date,
+      bookedDate: { type: Date, default: Date.now() },
     },
   ],
   rating: { type: Number, default: 96 },
