@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const { getAsset, getAssets, createAssets } = require("../modules/Asset");
+const { getStudent } = require("../modules/Student");
 
 router.get("/", async (req, res) => {
   const assets = await getAssets();
@@ -27,6 +28,21 @@ router.post("/add", async (req, res) => {
 
   res.send(response);
   res.end();
+});
+
+router.post("/book", async (req, res) => {
+  const { studentID, assetID } = req.body;
+
+  const student = await getStudent(studentID);
+  const asset = await getAsset(assetID);
+
+  student.bookedAssets.unshift(asset._id);
+  student.save();
+
+  asset.status = "NotAvailable";
+  asset.save();
+
+  res.send({ _id: assetID });
 });
 
 module.exports = router;
