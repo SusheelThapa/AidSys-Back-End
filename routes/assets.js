@@ -48,12 +48,16 @@ router.post("/book", async (req, res) => {
 
 router.post("/unbook", async (req, res) => {
   const { studentID, assetID } = req.body;
-
   const student = await getStudent(studentID);
   const asset = await getAsset(assetID);
 
-  const assetIndex = student.bookedAssets.indexOf(asset._id);
-  student.bookedAssets.splice(assetIndex, 1);
+  const updatedBookedAssets = [];
+  for (let i = 0; i < student.bookedAssets.length; i++) {
+    if (student.bookedAssets[i]._id.toString() !== assetID) {
+      updatedBookedAssets.push(student.bookedAssets[i]);
+    }
+  }
+  student.bookedAssets = updatedBookedAssets;
   student.save();
 
   asset.status = "Avaliable";
