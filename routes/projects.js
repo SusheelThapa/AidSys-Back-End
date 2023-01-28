@@ -27,14 +27,14 @@ router.get("/:_id", async (req, res) => {
 });
 
 router.post("/add", async (req, res) => {
-  const { name, description, link, owner, catgories, teammember } = req.body;
+  const { name, description, link, owner, categories, teammember } = req.body;
 
   const project = await createProject(
     name,
     description,
     link,
     owner,
-    catgories,
+    categories,
     teammember
   );
 
