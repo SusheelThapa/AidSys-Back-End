@@ -1,0 +1,138 @@
+### SIGNUP DETAILS
+POST http://localhost:5000/api/signup/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Susheel Thapa",
+    "faculty": "BCT",
+    "batch": "2077",
+    "interest": "Programming",
+    "bio": "Intelligent person",
+    "phonenumber": "9816227392",
+    "email": "077bct090.susheel@pcampus.edu.np",
+    "githubLink": "https://github.com/SusheelThapa",
+    "faceboook": "facebook",
+    "instagram": "instagram",
+    "twitter": "twitter",
+    "username": "neeka",
+    "password": "neeka"
+}
+
+### LOGIN DETAILS
+POST http://localhost:5000/api/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"imartinez",
+    "password":"imartinez"
+}
+
+### Adding Project
+POST http://localhost:5000/api/projects/add
+Content-Type: application/json
+
+{
+    "name":"VSUS", 
+    "description":"Feel the VSUS, Fall for VSUS", 
+    "link":"http://github.com/RajendraKhanal/vsus", 
+    "owner":"63d25e825db203b50d364322", 
+    "catgories":["other"], 
+    "teammember":[{"name":"SKM","link":"SKM"},{"name":"Ujj","link":"Ujj"}]
+}
+###
+GET http://localhost:5000/api/projects HTTP/1.1
+
+
+###
+GET http://localhost:5000/api/projects/63d2a9da8107086a8802aad5 HTTP/1.1
+
+###
+POST http://localhost:5000/api/token/create HTTP/1.1
+Content-Type: application/json
+
+{
+  "_id": "63d25e825db203b50d364322"
+}
+###
+POST http://localhost:5000/api/token/data HTTP/1.1
+Content-Type: application/json
+
+{
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYzZDI1ZTgyNWRiMjAzYjUwZDM2NDMyMiJ9LCJpYXQiOjE2NzQ3NTM1NjgsImV4cCI6MTY3NDc4MzU2OH0.M3ibINpplO1GhTLc8NB5ZwktI3OUGxgQUsTDdVa2nr0"
+}
+
+
+### GET USER OF PROVIDED USER ID
+GET http://localhost:5000/api/students/63d2486ff90c9dc73c0a2db0 HTTP/1.1
+
+
+### GET ASSET OF PROVIDED ASSET ID
+GET http://localhost:5000/api/assets/63d24ee2e3416205e78d9cc2 HTTP/1.1
+
+### GET LIST OF ALL THE ASSETS
+GET http://localhost:5000/api/assets/ HTTP/1.1
+
+###
+GET http://localhost:5000/api/assets/63d2ea564c993fa3eaa32af5 HTTP/1.1
+
+
+
+###
+POST http://localhost:5000/api/assets/add HTTP/1.1
+Content-Type: application/json
+
+{
+    "name":"Physics Book"
+    
+}
+
+
+
+### 
+POST http://localhost:5000/api/notices/add HTTP/1.1
+Content-Type: application/json
+
+{
+"heading":"A",
+"description":"BQWERTQRQr"
+}
+
+###
+POST http://localhost:5000/api/notices/add HTTP/1.1
+Content-Type: application/json
+
+{
+"heading":"G",
+"description":"WERFQERGWTOGQEOTGE"
+}
+
+
+###
+POST http://localhost:5000/api/assets/add HTTP/1.1
+Content-Type: application/json
+
+{
+"name":"Maths",
+"description":"WERFQERGWTOGQEOTGE"
+}
+###
+POST http://localhost:5000/api/assets/add HTTP/1.1
+Content-Type: application/json
+
+{
+"name":"Science",
+"description":"ROI#$(#RR@#EQK$RO#$RIJRFKQER JQRFRIFFREYHRTGEFD"
+}
+
+###
+POST http://localhost:5000/api/assets/add HTTP/1.1
+Content-Type: application/json
+
+{
+"name":"Physics",
+"description":"QWERQWETQEROKGQERGKEQOKG"
+}
+
+
+###
+GET http://localhost:5000/api/notices

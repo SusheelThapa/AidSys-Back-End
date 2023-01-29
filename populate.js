@@ -8,7 +8,6 @@ const { Auth } = require("./modules/Auth");
 const { Notice } = require("./modules/Notices");
 const { Project } = require("./modules/Projects");
 const { Student, createStudent } = require("./modules/Student");
-const { Tag } = require("./modules/Tag");
 
 const { BCRYPT_SALT_ROUND } = process.env;
 
@@ -509,7 +508,7 @@ const projects = [
     description:
       "A mobile app that connects citizens with city services and information",
     link: "https://smartcityapp.com",
-    categories: "Smart City",
+    categories: ["AI"],
     teammember: [
       {
         name: "John Smith",
@@ -526,7 +525,7 @@ const projects = [
     description:
       "A website that provides information and resources for purchasing electric cars",
     link: "https://ecofriendlycars.com",
-    categories: "Sustainability",
+    categories: ["AI"],
     teammember: [
       {
         name: "Michael Johnson",
@@ -542,7 +541,7 @@ const projects = [
     name: "Online MarketPlace",
     description: "An e-commerce platform connecting buyers and sellers",
     link: "https://onlinemarketplace.com",
-    categories: "E-commerce",
+    categories: ["AI"],
     teammember: [
       {
         name: "Emily Davis",
@@ -558,7 +557,7 @@ const projects = [
     name: "Virtual Fitness",
     description: "A virtual reality fitness app",
     link: "https://virtualfitness.com",
-    categories: "Fitness, Virtual Reality",
+    categories: ["AI"],
     teammember: [
       {
         name: "Robert Miller",
@@ -578,7 +577,7 @@ const projects = [
     name: "Green Energy",
     description: "An online platform for purchasing green energy products",
     link: "https://greenenergy.com",
-    categories: "Sustainability, Energy",
+    categories: ["AI"],
     teammember: [
       {
         name: "Joseph Martinez",
@@ -598,7 +597,7 @@ const projects = [
     name: "Education Hub",
     description: "A platform for online education and professional development",
     link: "https://educationhub.com",
-    categories: "Education, Professional Development",
+    categories: ["Other"],
     teammember: [
       {
         name: "Mark Davis",
@@ -615,7 +614,7 @@ const projects = [
     description:
       "A platform for connecting and sharing with friends and family",
     link: "https://socialmediaplatform.com",
-    categories: "Social Media",
+    categories: ["DS"],
     teammember: [
       {
         name: "Richard Rodriguez",
@@ -631,7 +630,7 @@ const projects = [
     name: "Weather App",
     description: "A mobile app that provides weather forecasts and alerts",
     link: "https://weatherapp.com",
-    categories: "Weather, Mobile App",
+    categories: ["DS"],
     teammember: [
       {
         name: "Matthew Robinson",
@@ -647,7 +646,7 @@ const projects = [
     name: "Job Search Engine",
     description: "A website for searching and applying for jobs",
     link: "https://jobsearchengine.com",
-    categories: "Job Search, Career",
+    categories: ["DS"],
     teammember: [
       {
         name: "Andrew Thompson",
@@ -672,7 +671,7 @@ const projects = [
     description:
       "A virtual reality app that provides tours of historical and tourist locations",
     link: "https://virtualtourguide.com",
-    categories: "Virtual Reality, Tourism",
+    categories: ["DS"],
     teammember: [
       {
         name: "Michael Johnson",
@@ -688,126 +687,12 @@ const projects = [
       },
     ],
   },
-  {
-    name: "Food Delivery Service",
-    description:
-      "An online platform for ordering food delivery from local restaurants",
-    link: "https://fooddelivery.com",
-    categories: "Food, E-commerce",
-    teammember: [
-      {
-        name: "Michael Brown",
-        link: "https://github.com/michaelbrown",
-      },
-      {
-        name: "David Garcia",
-        link: "https://github.com/davidgarcia",
-      },
-      {
-        name: "Mark Davis",
-        link: "https://github.com/markdavis",
-      },
-    ],
-  },
-  {
-    name: "Online Tutoring Service",
-    description: "A platform for connecting students with online tutors",
-    link: "https://onlinetutoring.com",
-    categories: "Education, Tutoring",
-    teammember: [
-      {
-        name: "Nancy Rodriguez",
-        link: "https://github.com/nancyrodriguez",
-      },
-    ],
-  },
-  {
-    name: "Travel App",
-    description: "A mobile app that helps plan and book travel itineraries",
-    link: "https://travelapp.com",
-    categories: "Travel, Mobile App",
-    teammember: [
-      {
-        name: "Mark Davis",
-        link: "https://github.com/markdavis",
-      },
-      {
-        name: "Jennifer Perez",
-        link: "https://github.com/jenniferperez",
-      },
-    ],
-  },
-  {
-    name: "Fashion E-Commerce",
-    description:
-      "An e-commerce platform for buying and selling fashion products",
-    link: "https://fashionecommerce.com",
-    categories: "E-commerce, Fashion",
-    teammember: [
-      {
-        name: "Joshua Hernandez",
-        link: "https://github.com/joshuahernandez",
-      },
-      {
-        name: "Andrew Thompson",
-        link: "https://github.com/andrewthompson",
-      },
-    ],
-  },
-  {
-    name: "Health and Wellness App",
-    description:
-      "A mobile app that provides health and wellness information and resources",
-    link: "https://healthwellnessapp.com",
-    categories: "Health, Mobile App",
-    teammember: [
-      {
-        name: "Suarez Tamang",
-        link: "https://github.com/suareztamang",
-      },
-    ],
-  },
-  {
-    name: "Real Estate Platform",
-    description: "A platform for buying and selling real estate properties",
-    link: "https://realestateplatform.com",
-    categories: "Real Estate, E-commerce",
-    teammember: [
-      {
-        name: "Michael Johnson",
-        link: "https://github.com/michaeljohnson",
-      },
-      {
-        name: "Emily Davis",
-        link: "https://github.com/emilydavis",
-      },
-    ],
-  },
-  {
-    name: "Online Gaming Platform",
-    description: "A platform for playing and discovering online games",
-    link: "https://onlinegaming.com",
-    categories: "Gaming, Entertainment",
-    teammember: [
-      {
-        name: "Robert Miller",
-        link: "https://github.com/robertmiller",
-      },
-      {
-        name: "Karen Garcia",
-        link: "https://github.com/karengarcia",
-      },
-      {
-        name: "Nancy Rodriguez",
-        link: "https://github.com/nancyrodriguez",
-      },
-    ],
-  },
+
   {
     name: "Car Sharing Service",
     description: "A platform for sharing and renting cars",
     link: "https://carsharing.com",
-    categories: "Transportation, Sharing Economy",
+    categories: ["DS"],
     teammember: [
       {
         name: "Mark Davis",
@@ -823,123 +708,12 @@ const projects = [
       },
     ],
   },
-  {
-    name: "Artificial Intelligence",
-    description: "A platform for developing and deploying AI models",
-    link: "https://aiplatform.com",
-    categories: "Artificial Intelligence, Software Development",
-    teammember: [
-      {
-        name: "Joshua Hernandez",
-        link: "https://github.com/joshuahernandez",
-      },
-      {
-        name: "Andrew Thompson",
-        link: "https://github.com/andrewthompson",
-      },
-      {
-        name: "Brian Torres",
-        link: "https://github.com/briantorres",
-      },
-    ],
-  },
-  {
-    name: "Virtual Meeting Platform",
-    description: "A platform for virtual meetings and video conferencing",
-    link: "https://virtualmeeting.com",
-    categories: "Virtual Reality, Communication",
-    teammember: [
-      {
-        name: "Jane Doe",
-        link: "https://github.com/janedoe",
-      },
-    ],
-  },
-  {
-    name: "Online Learning Platform",
-    description: "A platform for online courses and certification programs",
-    link: "https://onlinelearning.com",
-    categories: "Education, Professional Development",
-    teammember: [
-      {
-        name: "Robert Miller",
-        link: "https://github.com/robertmiller",
-      },
-      {
-        name: "Karen Garcia",
-        link: "https://github.com/karengarcia",
-      },
-      {
-        name: "Nancy Rodriguez",
-        link: "https://github.com/nancyrodriguez",
-      },
-    ],
-  },
-  {
-    name: "Online Portfolio Platform",
-    description: "A platform for building and sharing online portfolios",
-    link: "https://onlineportfolio.com",
-    categories: "Design, Photography",
-    teammember: [
-      {
-        name: "David Garcia",
-        link: "https://github.com/davidgarcia",
-      },
-      {
-        name: "Mark Davis",
-        link: "https://github.com/markdavis",
-      },
-      {
-        name: "Jennifer Perez",
-        link: "https://github.com/jenniferperez",
-      },
-    ],
-  },
-  {
-    name: "Gardening App",
-    description: "A mobile app that provides gardening tips and resources",
-    link: "https://gardeningapp.com",
-    categories: "Gardening, Mobile App",
-    teammember: [
-      {
-        name: "Jennifer Perez",
-        link: "https://github.com/jenniferperez",
-      },
-      {
-        name: "Richard Rodriguez",
-        link: "https://github.com/richardrodriguez",
-      },
-    ],
-  },
-  {
-    name: "Online Bookstore",
-    description: "An e-commerce platform for buying and selling books",
-    link: "https://onlinebookstore.com",
-    categories: "E-commerce, Books",
-    teammember: [
-      {
-        name: "Jennifer Perez",
-        link: "https://github.com/jenniferperez",
-      },
-      {
-        name: "Richard Rodriguez",
-        link: "https://github.com/richardrodriguez",
-      },
-      {
-        name: "Charles Martinez",
-        link: "https://github.com/charlesmartinez",
-      },
-      {
-        name: "Matthew Robinson",
-        link: "https://github.com/matthewrobinson",
-      },
-    ],
-  },
+
   {
     name: "Pet Adoption Platform",
     description: "A platform for adopting and fostering pets",
     link: "https://petadoption.com",
-    categories: "Pets, Adoption",
+    categories: ["DS"],
     teammember: [
       {
         name: "Michael Johnson",
@@ -955,7 +729,7 @@ const projects = [
     name: "Online Auction Platform",
     description: "A platform for buying and selling items through auctions",
     link: "https://onlineauction.com",
-    categories: "E-commerce, Auctions",
+    categories: ["WebDev"],
     teammember: [
       {
         name: "Jennifer Perez",
@@ -979,7 +753,7 @@ const projects = [
     name: "Online Recipe Platform",
     description: "A platform for sharing and discovering recipes",
     link: "https://onlinerecipe.com",
-    categories: "Food, Cooking",
+    categories: ["WebDev"],
     teammember: [
       {
         name: "Michael Brown",
@@ -995,7 +769,7 @@ const projects = [
     name: "Online Job Board",
     description: "A platform for posting and finding job opportunities",
     link: "https://onlinejobboard.com",
-    categories: "Job Search, Career",
+    categories: ["WebDev"],
     teammember: [
       {
         name: "Michael Johnson",
@@ -1011,7 +785,7 @@ const projects = [
     name: "Online Legal Platform",
     description: "A platform for connecting with legal services and resources",
     link: "https://onlinelegal.com",
-    categories: "Legal, Services",
+    categories: ["WebDev"],
     teammember: [
       {
         name: "Joseph Martinez",
@@ -1028,7 +802,7 @@ const projects = [
     description:
       "A platform for managing and investing in stocks, bonds and other assets",
     link: "https://onlineinvestment.com",
-    categories: "Investing, Finance",
+    categories: ["WebDev"],
     teammember: [
       {
         name: "Michael Johnson",
@@ -1044,7 +818,7 @@ const projects = [
     name: "Online Translation Platform",
     description: "A platform for translating text and speech",
     link: "https://onlinetranslation.com",
-    categories: "Language, Translation",
+    categories: ["WebDev"],
     teammember: [
       {
         name: "Jennifer Perez",
@@ -1069,7 +843,7 @@ const projects = [
     description:
       "A platform for connecting with mental health resources and professionals",
     link: "https://onlinementalhealth.com",
-    categories: "Mental Health, Services",
+    categories: ["AppDev"],
     teammember: [
       {
         name: "Joseph Martinez",
@@ -1085,7 +859,7 @@ const projects = [
     name: "Online Therapy Platform",
     description: "A platform for connecting with online therapy services",
     link: "https://onlinetherapy.com",
-    categories: "Therapy, Mental Health",
+    categories: ["AppDev"],
     teammember: [
       {
         name: "Michael Brown",
@@ -1101,7 +875,7 @@ const projects = [
     name: "Online Personal Finance Platform",
     description: "A platform for managing personal finances and budgeting",
     link: "https://onlinepersonalfinance.com",
-    categories: "Finance, Budgeting",
+    categories: ["AppDev"],
     teammember: [
       {
         name: "Joseph Martinez",
@@ -1117,7 +891,7 @@ const projects = [
     name: "Online Insurance Platform",
     description: "A platform for buying and managing insurance policies",
     link: "https://onlineinsurance.com",
-    categories: "Insurance, Finance",
+    categories: ["AppDev"],
     teammember: [
       {
         name: "Jennifer Perez",
@@ -1141,7 +915,7 @@ const projects = [
     name: "Online Tax Preparation Platform",
     description: "A platform for preparing and filing taxes online",
     link: "https://onlinetaxpreparation.com",
-    categories: "Taxes, Finance",
+    categories: ["AppDev"],
     teammember: [
       {
         name: "Joseph Martinez",
@@ -1158,7 +932,7 @@ const projects = [
     description:
       "An e-commerce platform for buying and selling a variety of goods",
     link: "https://onlinemarketplace.com",
-    categories: "E-commerce, Shopping",
+    categories: ["AppDev"],
     teammember: [
       {
         name: "Joseph Martinez",
@@ -1175,7 +949,7 @@ const projects = [
     description:
       "A platform for fitness tracking, workout plans and virtual classes",
     link: "https://onlinefitness.com",
-    categories: "Fitness, Health",
+    categories: ["Other"],
     teammember: [
       {
         name: "Michael Brown",
@@ -1191,7 +965,7 @@ const projects = [
     name: "Online Music Platform",
     description: "A platform for streaming and listening to music",
     link: "https://onlinemusic.com",
-    categories: "Music, Entertainment",
+    categories: ["Other"],
     teammember: [
       {
         name: "Joseph Martinez",
@@ -1207,7 +981,7 @@ const projects = [
     name: "Online Movie and TV Platform",
     description: "A platform for streaming movies and TV shows",
     link: "https://onlinemovies.com",
-    categories: "Movies, Entertainment",
+    categories: ["Other"],
     teammember: [
       {
         name: "Joseph Martinez",
@@ -1223,7 +997,7 @@ const projects = [
     name: "Online News Platform",
     description: "A platform for reading and sharing news articles",
     link: "https://onlinenews.com",
-    categories: "News, Journalism",
+    categories: ["Other"],
     teammember: [
       {
         name: "Jennifer Perez",
@@ -1248,7 +1022,7 @@ const projects = [
     description:
       "A platform for connecting and sharing with friends and family",
     link: "https://onlinesocialnetwork.com",
-    categories: "Social Networking, Communication",
+    categories: ["Other"],
     teammember: [
       {
         name: "Jennifer Perez",
@@ -1268,196 +1042,13 @@ const projects = [
       },
     ],
   },
-  {
-    name: "Online Dating Platform",
-    description: "A platform for dating and matchmaking",
-    link: "https://onlinedating.com",
-    categories: "Dating, Relationships",
-    teammember: [
-      {
-        name: "Michael Brown",
-        link: "https://github.com/michaelbrown",
-      },
-      {
-        name: "David Garcia",
-        link: "https://github.com/davidgarcia",
-      },
-    ],
-  },
-  {
-    name: "Online Classifieds Platform",
-    description: "A platform for buying and selling used goods and services",
-    link: "https://onlineclassifieds.com",
-    categories: "E-commerce, Classifieds",
-    teammember: [
-      {
-        name: "Jennifer Perez",
-        link: "https://github.com/jenniferperez",
-      },
-      {
-        name: "Richard Rodriguez",
-        link: "https://github.com/richardrodriguez",
-      },
-      {
-        name: "Charles Martinez",
-        link: "https://github.com/charlesmartinez",
-      },
-      {
-        name: "Matthew Robinson",
-        link: "https://github.com/matthewrobinson",
-      },
-    ],
-  },
-  {
-    name: "Online Gaming Community",
-    description: "A platform for connecting and playing with other gamers",
-    link: "https://onlinegamingcommunity.com",
-    categories: "Gaming, Community",
-    teammember: [
-      {
-        name: "Jennifer Perez",
-        link: "https://github.com/jenniferperez",
-      },
-      {
-        name: "Richard Rodriguez",
-        link: "https://github.com/richardrodriguez",
-      },
-      {
-        name: "Charles Martinez",
-        link: "https://github.com/charlesmartinez",
-      },
-      {
-        name: "Matthew Robinson",
-        link: "https://github.com/matthewrobinson",
-      },
-    ],
-  },
-  {
-    name: "Online Travel Platform",
-    description: "A platform for booking and planning travel",
-    link: "https://onlinetravel.com",
-    categories: "Travel, Tourism",
-    teammember: [
-      {
-        name: "Jennifer Perez",
-        link: "https://github.com/jenniferperez",
-      },
-      {
-        name: "Richard Rodriguez",
-        link: "https://github.com/richardrodriguez",
-      },
-      {
-        name: "Charles Martinez",
-        link: "https://github.com/charlesmartinez",
-      },
-      {
-        name: "Matthew Robinson",
-        link: "https://github.com/matthewrobinson",
-      },
-    ],
-  },
-  {
-    name: "Online Car Rental Platform",
-    description: "A platform for renting cars",
-    link: "https://onlinecarrental.com",
-    categories: "Transportation, Car Rental",
-    teammember: [
-      {
-        name: "Michael Brown",
-        link: "https://github.com/michaelbrown",
-      },
-      {
-        name: "David Garcia",
-        link: "https://github.com/davidgarcia",
-      },
-    ],
-  },
-  {
-    name: "Online Hotel Booking Platform",
-    description: "A platform for booking hotels",
-    link: "https://onlinehotelbooking.com",
-    categories: "Travel, Hotel Booking",
-    teammember: [
-      {
-        name: "Jennifer Perez",
-        link: "https://github.com/jenniferperez",
-      },
-      {
-        name: "Richard Rodriguez",
-        link: "https://github.com/richardrodriguez",
-      },
-      {
-        name: "Charles Martinez",
-        link: "https://github.com/charlesmartinez",
-      },
-      {
-        name: "Matthew Robinson",
-        link: "https://github.com/matthewrobinson",
-      },
-    ],
-  },
-  {
-    name: "Online Grocery Platform",
-    description: "A platform for ordering groceries online",
-    link: "https://onlinegrocery.com",
-    categories: "Food, E-commerce",
-    teammember: [
-      {
-        name: "Michael Brown",
-        link: "https://github.com/michaelbrown",
-      },
-      {
-        name: "David Garcia",
-        link: "https://github.com/davidgarcia",
-      },
-    ],
-  },
-  {
-    name: "Online Pharmacy Platform",
-    description: "A platform for ordering and delivering prescription drugs",
-    link: "https://onlinepharmacy.com",
-    categories: "Health, E-commerce",
-    teammember: [
-      {
-        name: "Joseph Martinez",
-        link: "https://github.com/josephmartinez",
-      },
-      {
-        name: "Michael Brown",
-        link: "https://github.com/michaelbrown",
-      },
-    ],
-  },
-  {
-    name: "Online Doctor Appointment Platform",
-    description: "A platform for scheduling and managing doctor appointments",
-    link: "https://onlinedoctorappointment.com",
-    categories: "Health, Medical",
-    teammember: [
-      {
-        name: "Jennifer Perez",
-        link: "https://github.com/jenniferperez",
-      },
-      {
-        name: "Richard Rodriguez",
-        link: "https://github.com/richardrodriguez",
-      },
-      {
-        name: "Charles Martinez",
-        link: "https://github.com/charlesmartinez",
-      },
-      {
-        name: "Matthew Robinson",
-        link: "https://github.com/matthewrobinson",
-      },
-    ],
-  },
+
   {
     name: "Online Laundry Service Platform",
     description:
       "A platform for booking and scheduling laundry pickup and delivery",
     link: "https://onlinelaundryservice.com",
-    categories: "Services, Laundry",
+    categories: ["Other"],
     teammember: [
       {
         name: "Jennifer Perez",
@@ -1482,7 +1073,7 @@ const projects = [
     description:
       "A platform for booking and scheduling dry cleaning pickup and delivery",
     link: "https://onlinedrycleaning.com",
-    categories: "Services, Cleaning",
+    categories: ["Other"],
     teammember: [
       {
         name: "Jennifer Perez",
@@ -1499,71 +1090,6 @@ const projects = [
       {
         name: "Matthew Robinson",
         link: "https://github.com/matthewrobinson",
-      },
-    ],
-  },
-  {
-    name: "Online tutoring platform",
-    description: "A platform for online tutoring and homework help",
-    link: "https://onlinetutoring.com",
-    categories: "Education, Tutoring",
-    teammember: [
-      {
-        name: "Jennifer Perez",
-        link: "https://github.com/jenniferperez",
-      },
-      {
-        name: "Richard Rodriguez",
-        link: "https://github.com/richardrodriguez",
-      },
-      {
-        name: "Charles Martinez",
-        link: "https://github.com/charlesmartinez",
-      },
-      {
-        name: "Matthew Robinson",
-        link: "https://github.com/matthewrobinson",
-      },
-    ],
-  },
-  {
-    name: "Online Job Platform",
-    description: "A platform for posting and searching job listings",
-    link: "https://onlinejobplatform.com",
-    categories: "Jobs, Career",
-    teammember: [
-      {
-        name: "Jennifer Perez",
-        link: "https://github.com/jenniferperez",
-      },
-      {
-        name: "Richard Rodriguez",
-        link: "https://github.com/richardrodriguez",
-      },
-      {
-        name: "Charles Martinez",
-        link: "https://github.com/charlesmartinez",
-      },
-      {
-        name: "Matthew Robinson",
-        link: "https://github.com/matthewrobinson",
-      },
-    ],
-  },
-  {
-    name: "Online Investment Platform",
-    description:
-      "A platform for managing investments and tracking financial performance",
-    link: "https://onlineinvestment.com",
-    categories: "Finance, Investment",
-    teammember: [
-      {
-        name: "Michael Brown",
-        link: "https://github.com/michaelbrown",
-      },
-      {
-        name: "David Garcia",
-        link: "https://github.com/davidgarcia",
       },
     ],
   },
@@ -1571,7 +1097,7 @@ const projects = [
     name: "Online Real Estate Platform",
     description: "A platform for buying, selling and renting properties",
     link: "https://onlinerealestate.com",
-    categories: "Real Estate, Property",
+    categories: ["Other"],
     teammember: [
       {
         name: "Jennifer Perez",
@@ -1596,48 +1122,7 @@ const projects = [
     description:
       "A platform for buying and selling pet-related products and services",
     link: "https://onlinepetstore.com",
-    categories: "Pet, E-commerce",
-    teammember: [
-      {
-        name: "Jennifer Perez",
-        link: "https://github.com/jenniferperez",
-      },
-      {
-        name: "Richard Rodriguez",
-        link: "https://github.com/richardrodriguez",
-      },
-      {
-        name: "Charles Martinez",
-        link: "https://github.com/charlesmartinez",
-      },
-      {
-        name: "Matthew Robinson",
-        link: "https://github.com/matthewrobinson",
-      },
-    ],
-  },
-  {
-    name: "Online Legal Service Platform",
-    description: "A platform for connecting with and hiring lawyers",
-    link: "https://onlinelegalservice.com",
-    categories: "Legal, Services",
-    teammember: [
-      {
-        name: "Michael Brown",
-        link: "https://github.com/michaelbrown",
-      },
-      {
-        name: "David Garcia",
-        link: "https://github.com/davidgarcia",
-      },
-    ],
-  },
-  {
-    name: "Online Language Learning Platform",
-    description:
-      "A platform for learning new languages through interactive lessons and exercises",
-    link: "https://onlinelanguagelearning.com",
-    categories: "Education, Language Learning",
+    categories: ["Other"],
     teammember: [
       {
         name: "Jennifer Perez",
@@ -1792,7 +1277,6 @@ const populate = async () => {
       student.username,
       student.password
     );
-    console.log(student);
     databaseStud.push(stud);
   }
 
@@ -1807,7 +1291,8 @@ const populate = async () => {
     student.projects.push(not._id);
     student.save();
   }
-  console.log(databaseStud, databaseAsset);
 };
 
-populate();
+populate().then(() => {
+  console.log("Done");
+});

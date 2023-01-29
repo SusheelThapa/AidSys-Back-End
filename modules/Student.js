@@ -75,7 +75,7 @@ const getStudent = async (_id) => {
       { _id },
       { password: 0, __v: 0, authentication: 0 }
     )
-      .populate("projects", { _id: 0, __v: 0 })
+      .populate("projects", { __v: 0 })
       .populate("bookedAssets", { __v: 0 });
 
     return student;
