@@ -1,6 +1,6 @@
 # AidSys-Backend-End
 
-**AisSys** is our project which basically takes any institution and all of its assets to cloud.
+**AidSys** is our project which basically takes any institution and all of its assets to cloud.
 Its digitizing the entire institution to reduce the operation cost and h
 ence enabling one-and-all present in the institution to make optimum use of the available resources.
 
